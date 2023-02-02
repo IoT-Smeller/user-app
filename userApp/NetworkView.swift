@@ -15,7 +15,7 @@ import SwiftUI
 
 struct NetworkView: View {
 
-    var body: some View {
+    var body: some View { 
         let statusColor = checkNetworkStatus()
         let wifiName = "Phrog House"
         
