@@ -17,13 +17,15 @@ struct Device: Identifiable, Hashable {
     let status: Color
     let deauthVulnerability: String
     let krackVulnerability: String
+    let attacked: Bool
+    let attackID: Int
     
     static func connected() -> [Device] {
         let connectedDevices: [Device] = [
-            Device(id: 1, name: "Amazon Dot", macAddr:  "00-B0-D0-63-C2-26", status: .green, deauthVulnerability: vulnerabilities[2], krackVulnerability: vulnerabilities[2]),
-            Device(id: 2, name: "Google Nest Hub", macAddr:  "00-B0-D0-63-C2-26", status: .yellow, deauthVulnerability: vulnerabilities[1], krackVulnerability: vulnerabilities[0]),
-            Device(id: 3, name: "Google Nest Camera", macAddr:  "00-B0-D0-63-C2-26", status: .red, deauthVulnerability: vulnerabilities[1], krackVulnerability: vulnerabilities[1]),
-            Device(id: 4, name: "August Lock", macAddr:  "00-B0-D0-63-C2-26", status: .green, deauthVulnerability: vulnerabilities[0], krackVulnerability: vulnerabilities[0])
+            Device(id: 1, name: "Amazon Dot", macAddr:  "00-B0-D0-63-C2-26", status: .green, deauthVulnerability: vulnerabilities[2], krackVulnerability: vulnerabilities[2], attacked: false, attackID: 0),
+            Device(id: 2, name: "Google Nest Hub", macAddr:  "00-B0-D0-63-C2-26", status: .yellow, deauthVulnerability: vulnerabilities[1], krackVulnerability: vulnerabilities[0], attacked: false, attackID: 0),
+            Device(id: 3, name: "Google Nest Camera", macAddr:  "00-B0-D0-63-C2-26", status: .red, deauthVulnerability: vulnerabilities[1], krackVulnerability: vulnerabilities[1], attacked: false, attackID: 0),
+            Device(id: 4, name: "August Lock", macAddr:  "00-B0-D0-63-C2-26", status: .green, deauthVulnerability: vulnerabilities[0], krackVulnerability: vulnerabilities[0], attacked: false, attackID: 0)
         ]
         
         return connectedDevices
@@ -31,10 +33,20 @@ struct Device: Identifiable, Hashable {
     
     static func other() -> [Device] {
         let otherDevices: [Device] = [
-            Device(id: 1, name: "Google Thermostat", macAddr:  "00-B0-D0-63-C2-26", status: .gray, deauthVulnerability: vulnerabilities[1], krackVulnerability: vulnerabilities[1])
+            Device(id: 1, name: "Google Thermostat", macAddr:  "00-B0-D0-63-C2-26", status: .gray, deauthVulnerability: vulnerabilities[1], krackVulnerability: vulnerabilities[1], attacked: false, attackID: 0)
         ]
         
         return otherDevices
+    }
+    
+    static func attacked() -> [Device] {
+        let attackedDevices: [Device] = [
+            Device(id: 1, name: "Google Thermostat", macAddr:  "00-B0-D0-63-C2-26", status: .red, deauthVulnerability: vulnerabilities[1], krackVulnerability: vulnerabilities[1], attacked: true, attackID: 1),
+            Device(id: 3, name: "Google Nest Camera", macAddr:  "00-B0-D0-63-C2-26", status: .red, deauthVulnerability: vulnerabilities[1], krackVulnerability: vulnerabilities[1], attacked: true, attackID: 2),
+            Device(id: 4, name: "August Lock", macAddr:  "00-B0-D0-63-C2-26", status: .yellow, deauthVulnerability: vulnerabilities[0], krackVulnerability: vulnerabilities[0], attacked: true, attackID: 2)
+        ]
+        
+        return attackedDevices
     }
 }
 
@@ -59,20 +71,29 @@ struct DeviceView: View {
             }
             
             if isExpanded {
-
-                VStack(alignment: .leading) {
-                    Spacer()
-                    HStack {
-                        Text("MAC Address:")
-                        Text(device.macAddr)
+                if device.attacked { // Only show certain info if device is attacked
+                    VStack(alignment: .leading) {
+                        Spacer()
+                        HStack {
+                            Text("MAC Address:")
+                            Text(device.macAddr)
+                        }
                     }
-                    HStack {
-                        Text("Deauth Vulnerability:")
-                        Text(device.deauthVulnerability)
-                    }
-                    HStack {
-                        Text("KRACK Vulnerability:")
-                        Text(device.krackVulnerability)
+                } else {
+                    VStack(alignment: .leading) { // Only show certain info if device isn't attacked
+                        Spacer()
+                        HStack {
+                            Text("MAC Address:")
+                            Text(device.macAddr)
+                        }
+                        HStack {
+                            Text("Deauth Vulnerability:")
+                            Text(device.deauthVulnerability)
+                        }
+                        HStack {
+                            Text("KRACK Vulnerability:")
+                            Text(device.krackVulnerability)
+                        }
                     }
                 }
             }
@@ -83,7 +104,7 @@ struct DeviceView: View {
 struct DevicesListView: View {
     let devices: [Device]
     @State private var selection: Set<Device> = []
-    
+
     var body: some View {
         scrollForEach
             .background(.white)
@@ -112,8 +133,13 @@ struct DevicesListView: View {
         if selection.contains(device) {
             selection.remove(device)
         } else {
+            closeOthers()
             selection.insert(device)
         }
+    }
+    
+    private func closeOthers() {
+        selection.removeAll()
     }
 }
 

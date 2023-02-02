@@ -102,9 +102,9 @@
 			children = (
 				FB51F23C298C31EE00065C9C /* userAppApp.swift */,
 				FB51F23E298C31EE00065C9C /* ContentView.swift */,
-				FB51F266298C324400065C9C /* AttackView.swift */,
 				FB51F268298C326900065C9C /* DeviceView.swift */,
 				FB51F26A298C329400065C9C /* NetworkView.swift */,
+				FB51F266298C324400065C9C /* AttackView.swift */,
 				FB51F240298C31F000065C9C /* Assets.xcassets */,
 				FB51F242298C31F000065C9C /* Preview Content */,
 			);

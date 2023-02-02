@@ -31,7 +31,7 @@ struct ContentView: View {
                     Text("Network")
                 }
             
-            AttackView()
+            AttackPageView()
                 .tabItem {
                      Image(systemName: "exclamationmark.triangle")
                      Text("Attacks")
