@@ -14,6 +14,9 @@
 		FB51F24E298C31F100065C9C /* userAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB51F24D298C31F100065C9C /* userAppTests.swift */; };
 		FB51F258298C31F100065C9C /* userAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB51F257298C31F100065C9C /* userAppUITests.swift */; };
 		FB51F25A298C31F100065C9C /* userAppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB51F259298C31F100065C9C /* userAppUITestsLaunchTests.swift */; };
+		FB51F267298C324400065C9C /* AttackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB51F266298C324400065C9C /* AttackView.swift */; };
+		FB51F269298C326900065C9C /* DeviceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB51F268298C326900065C9C /* DeviceView.swift */; };
+		FB51F26B298C329400065C9C /* NetworkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB51F26A298C329400065C9C /* NetworkView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +47,9 @@
 		FB51F253298C31F100065C9C /* userAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = userAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB51F257298C31F100065C9C /* userAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = userAppUITests.swift; sourceTree = "<group>"; };
 		FB51F259298C31F100065C9C /* userAppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = userAppUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		FB51F266298C324400065C9C /* AttackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttackView.swift; sourceTree = "<group>"; };
+		FB51F268298C326900065C9C /* DeviceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceView.swift; sourceTree = "<group>"; };
+		FB51F26A298C329400065C9C /* NetworkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +102,9 @@
 			children = (
 				FB51F23C298C31EE00065C9C /* userAppApp.swift */,
 				FB51F23E298C31EE00065C9C /* ContentView.swift */,
+				FB51F266298C324400065C9C /* AttackView.swift */,
+				FB51F268298C326900065C9C /* DeviceView.swift */,
+				FB51F26A298C329400065C9C /* NetworkView.swift */,
 				FB51F240298C31F000065C9C /* Assets.xcassets */,
 				FB51F242298C31F000065C9C /* Preview Content */,
 			);
@@ -257,7 +266,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FB51F267298C324400065C9C /* AttackView.swift in Sources */,
 				FB51F23F298C31EE00065C9C /* ContentView.swift in Sources */,
+				FB51F269298C326900065C9C /* DeviceView.swift in Sources */,
+				FB51F26B298C329400065C9C /* NetworkView.swift in Sources */,
 				FB51F23D298C31EE00065C9C /* userAppApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

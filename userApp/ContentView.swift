@@ -2,20 +2,41 @@
 //  ContentView.swift
 //  userApp
 //
-//  Created by Colette Bradley on 2/2/23.
+//  Created by Jaden Ngo on 1/23/23.
 //
 
 import SwiftUI
 
+// ********  Colors ********
+struct CustomColor {
+    static let naviColor = Color("navigationBar")
+    static let lightBlue = Color("lightBlue")
+    static let darkBlue = Color("darkBlue")
+    static let lightGray = Color("lightGray")
+}
+
+// *** Content View ***
 struct ContentView: View {
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        TabView {
+            DevicePageView()
+                .tabItem {
+                    Image(systemName: "iphone.gen3.radiowaves.left.and.right")
+                    Text("Devices")
+                }
+            
+            NetworkView()
+                .tabItem {
+                    Image(systemName: "wifi")
+                    Text("Network")
+                }
+            
+            AttackView()
+                .tabItem {
+                     Image(systemName: "exclamationmark.triangle")
+                     Text("Attacks")
+                }
         }
-        .padding()
     }
 }
 
