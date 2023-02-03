@@ -10,19 +10,25 @@ import Foundation
 
 // vulnerabilities = ["Low", "Medium", "High"]
 
-class SelectedAttack: ObservableObject {
-    @Published var id = -1
+struct SelectedAttack {
+    var id: Int = 2
 }
+
+/*
+ struct SelectedAttack: ObservableObject {
+     @Published var id: Int = 2
+ }
+ */
 
 struct Attack: Identifiable, Hashable {
     let id: Int
     let name: String
     let timestamp: String
-    let affectedDevices: [Device]
+    let affectedDevices: [Int] // List of device ids
     
     static func todayAttacks() -> [Attack] {
         let todayAttacks: [Attack] = [
-            Attack(id: 1, name: "Deauth", timestamp: "30m ago", affectedDevices: [])
+            Attack(id: 2, name: "Deauth", timestamp: "30m ago", affectedDevices: [1, 4])
         ]
         
         return todayAttacks
@@ -30,7 +36,7 @@ struct Attack: Identifiable, Hashable {
     
     static func prevAttacks() -> [Attack] {
         let prevAttacks: [Attack] = [
-            Attack(id: 2, name: "Deauth", timestamp: "2d ago", affectedDevices: [])
+            Attack(id: 1, name: "Deauth", timestamp: "2d ago", affectedDevices: [3])
         ]
         
         return prevAttacks
@@ -76,7 +82,7 @@ struct AttackView: View {
 struct AttacksListView: View {
     let attacks: [Attack]
     @State private var selection: Set<Attack> = []
-    @StateObject var selectedAttack = SelectedAttack()
+    @StateObject var selectedAttack = SelectedAttack.id
 
     var body: some View {
         scrollForEach
@@ -108,7 +114,7 @@ struct AttacksListView: View {
         } else {
             closeOthers()
             selection.insert(attack)
-            selectedAttack.id = attack.id
+           // selectedAttack.id = attack.id
         }
     }
     

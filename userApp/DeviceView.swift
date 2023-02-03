@@ -20,31 +20,45 @@ struct Device: Identifiable, Hashable {
     let attacked: Bool
     let attackID: Int
     
-    static func connected() -> [Device] {
+    static func allDevices() -> [Device] { // List of all devices connected at some point in time
+        let allDevices: [Device] = [
+            Device(id: 1, name: "Amazon Dot", macAddr:  "00-B0-D0-63-C2-26", status: .green, deauthVulnerability: vulnerabilities[2], krackVulnerability: vulnerabilities[2], attacked: false, attackID: 1),
+            Device(id: 2, name: "Google Nest Hub", macAddr:  "00-B0-D0-63-C2-26", status: .yellow, deauthVulnerability: vulnerabilities[1], krackVulnerability: vulnerabilities[0], attacked: false, attackID: 2),
+            Device(id: 3, name: "Google Nest Camera", macAddr:  "00-B0-D0-63-C2-26", status: .red, deauthVulnerability: vulnerabilities[1], krackVulnerability: vulnerabilities[1], attacked: false, attackID: 2),
+            Device(id: 4, name: "August Lock", macAddr:  "00-B0-D0-63-C2-26", status: .green, deauthVulnerability: vulnerabilities[0], krackVulnerability: vulnerabilities[0], attacked: false, attackID: 3),
+            Device(id: 1, name: "Google Thermostat", macAddr:  "00-B0-D0-63-C2-26", status: .gray, deauthVulnerability: vulnerabilities[1], krackVulnerability: vulnerabilities[1], attacked: false, attackID: 4)
+        ]
+        
+        return allDevices
+    }
+    
+    static func connected() -> [Device] { // List of currently connected devices
         let connectedDevices: [Device] = [
-            Device(id: 1, name: "Amazon Dot", macAddr:  "00-B0-D0-63-C2-26", status: .green, deauthVulnerability: vulnerabilities[2], krackVulnerability: vulnerabilities[2], attacked: false, attackID: 0),
-            Device(id: 2, name: "Google Nest Hub", macAddr:  "00-B0-D0-63-C2-26", status: .yellow, deauthVulnerability: vulnerabilities[1], krackVulnerability: vulnerabilities[0], attacked: false, attackID: 0),
-            Device(id: 3, name: "Google Nest Camera", macAddr:  "00-B0-D0-63-C2-26", status: .red, deauthVulnerability: vulnerabilities[1], krackVulnerability: vulnerabilities[1], attacked: false, attackID: 0),
-            Device(id: 4, name: "August Lock", macAddr:  "00-B0-D0-63-C2-26", status: .green, deauthVulnerability: vulnerabilities[0], krackVulnerability: vulnerabilities[0], attacked: false, attackID: 0)
+            Device(id: 1, name: "Amazon Dot", macAddr:  "00-B0-D0-63-C2-26", status: .green, deauthVulnerability: vulnerabilities[2], krackVulnerability: vulnerabilities[2], attacked: false, attackID: 1),
+            Device(id: 2, name: "Google Nest Hub", macAddr:  "00-B0-D0-63-C2-26", status: .yellow, deauthVulnerability: vulnerabilities[1], krackVulnerability: vulnerabilities[0], attacked: false, attackID: 2),
+            Device(id: 3, name: "Google Nest Camera", macAddr:  "00-B0-D0-63-C2-26", status: .red, deauthVulnerability: vulnerabilities[1], krackVulnerability: vulnerabilities[1], attacked: false, attackID: 2),
+            Device(id: 4, name: "August Lock", macAddr:  "00-B0-D0-63-C2-26", status: .green, deauthVulnerability: vulnerabilities[0], krackVulnerability: vulnerabilities[0], attacked: false, attackID: 3)
         ]
         
         return connectedDevices
     }
     
-    static func other() -> [Device] {
+    static func other() -> [Device] { // List of devices not currently connected, detected by wifi
+        @StateObject var attackId = SelectedAttack()
+        
         let otherDevices: [Device] = [
-            Device(id: 1, name: "Google Thermostat", macAddr:  "00-B0-D0-63-C2-26", status: .gray, deauthVulnerability: vulnerabilities[1], krackVulnerability: vulnerabilities[1], attacked: false, attackID: 0)
+            Device(id: 1, name: "Google Thermostat", macAddr:  "00-B0-D0-63-C2-26", status: .gray, deauthVulnerability: vulnerabilities[1], krackVulnerability: vulnerabilities[1], attacked: false, attackID: -1)
         ]
         
         return otherDevices
     }
     
-    static func attacked() -> [Device] {
-        let attackedDevices: [Device] = [
-            Device(id: 1, name: "Google Thermostat", macAddr:  "00-B0-D0-63-C2-26", status: .red, deauthVulnerability: vulnerabilities[1], krackVulnerability: vulnerabilities[1], attacked: true, attackID: 1),
-            Device(id: 3, name: "Google Nest Camera", macAddr:  "00-B0-D0-63-C2-26", status: .red, deauthVulnerability: vulnerabilities[1], krackVulnerability: vulnerabilities[1], attacked: true, attackID: 2),
-            Device(id: 4, name: "August Lock", macAddr:  "00-B0-D0-63-C2-26", status: .yellow, deauthVulnerability: vulnerabilities[0], krackVulnerability: vulnerabilities[0], attacked: true, attackID: 2)
-        ]
+    static func attacked() -> [Device] { // TODO: for each connected device, if attack id = selected attack
+        @StateObject var selectedAttackID = SelectedAttack()
+        var attackedDevices: [Device] = []
+        let allDevices: [Device] = allDevices()
+        
+        attackedDevices = allDevices.filter({$0.attackID == selectedAttackID.id})
         
         return attackedDevices
     }
@@ -153,6 +167,7 @@ struct ListRowModifier: ViewModifier {
         }.offset(x: 20)
     }
 }
+
 
 struct PlacesList_Previews: PreviewProvider {
     static var previews: some View {
