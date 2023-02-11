@@ -10,6 +10,18 @@ import Foundation
 
 public var vulnerabilities = ["Low", "Medium", "High"]
 
+class SelectedTab: ObservableObject {
+    @Published var id: Int
+    
+    init () {
+        self.id = 1
+    }
+    
+    func setTab(num: Int) {
+        self.id = num
+    }
+}
+
 struct Device: Identifiable, Hashable {
     let id: Int
     let name: String
@@ -17,16 +29,15 @@ struct Device: Identifiable, Hashable {
     let status: Color
     let deauthVulnerability: String
     let krackVulnerability: String
-    let attacked: Bool
-    let attackID: Int
+    let attackID: [Int]
     
     static func allDevices() -> [Device] { // List of all devices connected at some point in time
         let allDevices: [Device] = [
-            Device(id: 1, name: "Amazon Dot", macAddr:  "00-B0-D0-63-C2-26", status: .green, deauthVulnerability: vulnerabilities[2], krackVulnerability: vulnerabilities[2], attacked: false, attackID: 1),
-            Device(id: 2, name: "Google Nest Hub", macAddr:  "00-B0-D0-63-C2-26", status: .yellow, deauthVulnerability: vulnerabilities[1], krackVulnerability: vulnerabilities[0], attacked: false, attackID: 2),
-            Device(id: 3, name: "Google Nest Camera", macAddr:  "00-B0-D0-63-C2-26", status: .red, deauthVulnerability: vulnerabilities[1], krackVulnerability: vulnerabilities[1], attacked: false, attackID: 2),
-            Device(id: 4, name: "August Lock", macAddr:  "00-B0-D0-63-C2-26", status: .green, deauthVulnerability: vulnerabilities[0], krackVulnerability: vulnerabilities[0], attacked: false, attackID: 3),
-            Device(id: 1, name: "Google Thermostat", macAddr:  "00-B0-D0-63-C2-26", status: .gray, deauthVulnerability: vulnerabilities[1], krackVulnerability: vulnerabilities[1], attacked: false, attackID: 4)
+            Device(id: 1, name: "Amazon Dot", macAddr:  "00-B0-D0-63-C2-26", status: .green, deauthVulnerability: vulnerabilities[2], krackVulnerability: vulnerabilities[2], attackID: [1]),
+            Device(id: 2, name: "Google Nest Hub", macAddr:  "00-B0-D0-63-C2-26", status: .yellow, deauthVulnerability: vulnerabilities[1], krackVulnerability: vulnerabilities[0], attackID: [2]),
+            Device(id: 3, name: "Google Nest Camera", macAddr:  "00-B0-D0-63-C2-26", status: .red, deauthVulnerability: vulnerabilities[1], krackVulnerability: vulnerabilities[1], attackID: [2]),
+            Device(id: 4, name: "August Lock", macAddr:  "00-B0-D0-63-C2-26", status: .green, deauthVulnerability: vulnerabilities[0], krackVulnerability: vulnerabilities[0], attackID: [3]),
+            Device(id: 1, name: "Google Thermostat", macAddr:  "00-B0-D0-63-C2-26", status: .gray, deauthVulnerability: vulnerabilities[1], krackVulnerability: vulnerabilities[1], attackID: [4])
         ]
         
         return allDevices
@@ -34,10 +45,10 @@ struct Device: Identifiable, Hashable {
     
     static func connected() -> [Device] { // List of currently connected devices
         let connectedDevices: [Device] = [
-            Device(id: 1, name: "Amazon Dot", macAddr:  "00-B0-D0-63-C2-26", status: .green, deauthVulnerability: vulnerabilities[2], krackVulnerability: vulnerabilities[2], attacked: false, attackID: 1),
-            Device(id: 2, name: "Google Nest Hub", macAddr:  "00-B0-D0-63-C2-26", status: .yellow, deauthVulnerability: vulnerabilities[1], krackVulnerability: vulnerabilities[0], attacked: false, attackID: 2),
-            Device(id: 3, name: "Google Nest Camera", macAddr:  "00-B0-D0-63-C2-26", status: .red, deauthVulnerability: vulnerabilities[1], krackVulnerability: vulnerabilities[1], attacked: false, attackID: 2),
-            Device(id: 4, name: "August Lock", macAddr:  "00-B0-D0-63-C2-26", status: .green, deauthVulnerability: vulnerabilities[0], krackVulnerability: vulnerabilities[0], attacked: false, attackID: 3)
+            Device(id: 1, name: "Amazon Dot", macAddr:  "00-B0-D0-63-C2-26", status: .green, deauthVulnerability: vulnerabilities[2], krackVulnerability: vulnerabilities[2], attackID: [1]),
+            Device(id: 2, name: "Google Nest Hub", macAddr:  "00-B0-D0-63-C2-26", status: .yellow, deauthVulnerability: vulnerabilities[1], krackVulnerability: vulnerabilities[0], attackID: [2]),
+            Device(id: 3, name: "Google Nest Camera", macAddr:  "00-B0-D0-63-C2-26", status: .red, deauthVulnerability: vulnerabilities[1], krackVulnerability: vulnerabilities[1], attackID: [2]),
+            Device(id: 4, name: "August Lock", macAddr:  "00-B0-D0-63-C2-26", status: .green, deauthVulnerability: vulnerabilities[0], krackVulnerability: vulnerabilities[0], attackID: [3])
         ]
         
         return connectedDevices
@@ -47,18 +58,18 @@ struct Device: Identifiable, Hashable {
         @StateObject var attackId = SelectedAttack()
         
         let otherDevices: [Device] = [
-            Device(id: 1, name: "Google Thermostat", macAddr:  "00-B0-D0-63-C2-26", status: .gray, deauthVulnerability: vulnerabilities[1], krackVulnerability: vulnerabilities[1], attacked: false, attackID: -1)
+            Device(id: 1, name: "Google Thermostat", macAddr:  "00-B0-D0-63-C2-26", status: .gray, deauthVulnerability: vulnerabilities[1], krackVulnerability: vulnerabilities[1], attackID: [-1])
         ]
         
         return otherDevices
     }
     
     static func attacked() -> [Device] { // TODO: for each connected device, if attack id = selected attack
-        @StateObject var selectedAttackID = SelectedAttack()
+        @ObservedObject var selectedAttack = SelectedAttack.selAttack
         var attackedDevices: [Device] = []
         let allDevices: [Device] = allDevices()
         
-        attackedDevices = allDevices.filter({$0.attackID == selectedAttackID.id})
+        attackedDevices = allDevices.filter({$0.attackID.contains(selectedAttack.id)})
         
         return attackedDevices
     }
@@ -67,6 +78,8 @@ struct Device: Identifiable, Hashable {
 struct DeviceView: View {
     let device: Device
     let isExpanded: Bool
+    
+    @EnvironmentObject var selTab: SelectedTab
     
     var body: some View {
         HStack {
@@ -85,7 +98,7 @@ struct DeviceView: View {
             }
             
             if isExpanded {
-                if device.attacked { // Only show certain info if device is attacked
+                if (selTab.id == 3) { // Only show certain info if device is attacked
                     VStack(alignment: .leading) {
                         Spacer()
                         HStack {
@@ -176,6 +189,9 @@ struct PlacesList_Previews: PreviewProvider {
 }
 
 struct DevicePageView: View {
+   // @Binding var activeTab: Int
+   // @ObservedObject var selectedTab = activeTab
+    
     var body: some View {
 
             NavigationView {
@@ -226,8 +242,10 @@ struct DevicePageView: View {
 }
 
 struct DeviceView_Previews: PreviewProvider {
+    @State static var activeTab = 1
+    
     static var previews: some View {
-        DevicePageView()
+        DevicePageView().tag(1)
     }
 }
 

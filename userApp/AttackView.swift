@@ -10,25 +10,20 @@ import Foundation
 
 // vulnerabilities = ["Low", "Medium", "High"]
 
-struct SelectedAttack {
-    var id: Int = 2
+class SelectedAttack: ObservableObject {
+    static let selAttack = SelectedAttack()
+    
+    @Published var id: Int = 2
 }
-
-/*
- struct SelectedAttack: ObservableObject {
-     @Published var id: Int = 2
- }
- */
 
 struct Attack: Identifiable, Hashable {
     let id: Int
     let name: String
     let timestamp: String
-    let affectedDevices: [Int] // List of device ids
     
     static func todayAttacks() -> [Attack] {
         let todayAttacks: [Attack] = [
-            Attack(id: 2, name: "Deauth", timestamp: "30m ago", affectedDevices: [1, 4])
+            Attack(id: 2, name: "Deauthentication", timestamp: "30m ago")
         ]
         
         return todayAttacks
@@ -36,7 +31,8 @@ struct Attack: Identifiable, Hashable {
     
     static func prevAttacks() -> [Attack] {
         let prevAttacks: [Attack] = [
-            Attack(id: 1, name: "Deauth", timestamp: "2d ago", affectedDevices: [3])
+            Attack(id: 1, name: "Deauthentication", timestamp: "2d ago"),
+            Attack(id: 3, name: "Deauthentication", timestamp: "4d ago")
         ]
         
         return prevAttacks
@@ -82,7 +78,8 @@ struct AttackView: View {
 struct AttacksListView: View {
     let attacks: [Attack]
     @State private var selection: Set<Attack> = []
-    @StateObject var selectedAttack = SelectedAttack.id
+    @ObservedObject var selectedAttack = SelectedAttack.selAttack
+    //@StateObject var selectedAttack = SelectedAttack.id
 
     var body: some View {
         scrollForEach
@@ -114,7 +111,7 @@ struct AttacksListView: View {
         } else {
             closeOthers()
             selection.insert(attack)
-           // selectedAttack.id = attack.id
+            selectedAttack.id = attack.id
         }
     }
     
@@ -130,6 +127,8 @@ struct AttacksList_Previews: PreviewProvider {
 }
 
 struct AttackPageView: View {
+    @Binding var activeTab: Int
+    
     var body: some View {
 
             NavigationView {
@@ -183,8 +182,10 @@ struct AttackPageView: View {
 }
 
 struct AttackView_Previews: PreviewProvider {
+    @State static var activeTab = 3
+    
     static var previews: some View {
-        AttackPageView()
+        AttackPageView(activeTab: $activeTab).tag(3)
     }
 }
 
