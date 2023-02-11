@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import Foundation
+import Foundation 
 
 public var vulnerabilities = ["Low", "Medium", "High"]
 
