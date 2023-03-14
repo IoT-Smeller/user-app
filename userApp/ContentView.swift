@@ -27,6 +27,9 @@ struct ContentView: View {
     @State var activeTab = 1
     
     @EnvironmentObject var selTab: SelectedTab
+    @EnvironmentObject var attackobjs: attackObjs
+   // @EnvironmentObject var userObjs: UserObject
+    @StateObject var user = UserObject()
     
     var body: some View {
         TabView (selection: $selTab.id){
@@ -34,9 +37,9 @@ struct ContentView: View {
                 .tabItem {
                     Image(systemName: "iphone.gen3.radiowaves.left.and.right")
                     Text("Devices")
-                }
+                }.environmentObject(selTab)
             
-            NetworkView()
+            NetworkView().tag(2)
                 .tabItem {
                     Image(systemName: "wifi")
                     Text("Network")
@@ -47,11 +50,13 @@ struct ContentView: View {
                      Image(systemName: "exclamationmark.triangle")
                      Text("Attacks")
                 }
+            
+            LoginView(user: user).tag(4)
+                .tabItem {
+                    Image(systemName: "iphone.gen3.radiowaves.left.and.right")
+                    Text("Login")
+                }
         }
-    }
-    
-    func loadData() {
-        // TODO: decode JSON from remote server 
     }
 }
 
@@ -59,5 +64,7 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
             .environmentObject(SelectedTab())
+            .environmentObject(attackObjs())
+            .environmentObject(UserObject())
     }
 }

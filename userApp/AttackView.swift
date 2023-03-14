@@ -16,6 +16,39 @@ class SelectedAttack: ObservableObject {
     @Published var id: Int = 2
 }
 
+class attackObjs: ObservableObject {
+    @Published var atts: [AttackObject] = []
+
+      func getUsers() {
+          guard let url = URL(string: "****") else { fatalError("Missing URL") }
+
+          let urlRequest = URLRequest(url: url)
+
+          let dataTask = URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
+              if let error = error {
+                  print("Request error: ", error)
+                  return
+              }
+
+              guard let response = response as? HTTPURLResponse else { return }
+
+              if response.statusCode == 200 {
+                  guard let data = data else { return }
+                  DispatchQueue.main.async {
+                      do {
+                          let decodedUsers = try JSONDecoder().decode([AttackObject].self, from: data)
+                          self.atts = decodedUsers
+                      } catch let error {
+                          print("Error decoding: ", error)
+                      }
+                  }
+              }
+          }
+
+          dataTask.resume()
+      }
+}
+
 struct Attack: Identifiable, Hashable {
     let id: Int
     let name: String
