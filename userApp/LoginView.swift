@@ -10,6 +10,7 @@ import SwiftUI
 
 struct LoginView: View {
     
+    @EnvironmentObject var us: UserState
     @State private var confirmationMessage = ""
     @State private var showingConfirmation = false
     @ObservedObject var user: UserObject
@@ -55,6 +56,7 @@ struct LoginView: View {
             user.user_id = decodedUser.user_id
             confirmationMessage = "User created: \(user.user_id)"
             showingConfirmation = true
+            us.isLoggedIn = true
         } catch {
             print("Checkout failed.")
         }

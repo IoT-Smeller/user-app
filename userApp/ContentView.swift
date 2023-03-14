@@ -50,12 +50,6 @@ struct ContentView: View {
                      Image(systemName: "exclamationmark.triangle")
                      Text("Attacks")
                 }
-            
-            LoginView(user: user).tag(4)
-                .tabItem {
-                    Image(systemName: "iphone.gen3.radiowaves.left.and.right")
-                    Text("Login")
-                }
         }
     }
 }

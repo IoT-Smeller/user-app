@@ -9,12 +9,30 @@ import SwiftUI
 
 @main
 struct userAppApp: App {
-    @StateObject var selTab = SelectedTab()
+    @StateObject var us = UserState()
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .environmentObject(selTab)
+            NavigationView {
+                ApplicationSwitcher()
+            }.environmentObject(us)
         }
+    }
+}
+
+struct ApplicationSwitcher: View {
+    
+    @StateObject var selTab = SelectedTab()
+    @StateObject var user = UserObject()
+    @EnvironmentObject var vm: UserState
+    
+    var body: some View {
+        if (vm.isLoggedIn) {
+                ContentView()
+                    .environmentObject(selTab)
+        } else {
+            LoginView(user: user)
+        }
+        
     }
 }
