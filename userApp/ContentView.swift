@@ -27,9 +27,9 @@ struct ContentView: View {
     @State var activeTab = 1
     
     @EnvironmentObject var selTab: SelectedTab
-    @EnvironmentObject var attackobjs: attackObjs
-   // @EnvironmentObject var userObjs: UserObject
     @StateObject var user = UserObject()
+    @StateObject var deviceInfo = DeviceObject()
+    @StateObject var attackInfo = AttackObject()
     
     var body: some View {
         TabView (selection: $selTab.id){
@@ -45,7 +45,7 @@ struct ContentView: View {
                     Text("Network")
                 }
             
-            AttackPageView(activeTab: $activeTab).tag(3)
+            AttackPageView().tag(3)
                 .tabItem {
                      Image(systemName: "exclamationmark.triangle")
                      Text("Attacks")
@@ -58,7 +58,8 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
             .environmentObject(SelectedTab())
-            .environmentObject(attackObjs())
+            .environmentObject(AttackObject())
             .environmentObject(UserObject())
+            .environmentObject(DeviceObject())
     }
 }

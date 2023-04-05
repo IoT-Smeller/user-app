@@ -20,6 +20,7 @@
 		FB76F90529BAA26C00A08942 /* Attack.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB76F90429BAA26C00A08942 /* Attack.swift */; };
 		FB76F90729BAAC5500A08942 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB76F90629BAAC5500A08942 /* LoginView.swift */; };
 		FB76F90929BAAD0000A08942 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB76F90829BAAD0000A08942 /* User.swift */; };
+		FB8122AA29DDCE2E00419DF0 /* UknownDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB8122A929DDCE2E00419DF0 /* UknownDevice.swift */; };
 		FB8291EE29C0E1BF00EFB3C2 /* UserState.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB8291ED29C0E1BF00EFB3C2 /* UserState.swift */; };
 		FB8291F029C0E4C500EFB3C2 /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB8291EF29C0E4C500EFB3C2 /* Device.swift */; };
 /* End PBXBuildFile section */
@@ -59,6 +60,7 @@
 		FB76F90429BAA26C00A08942 /* Attack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Attack.swift; sourceTree = "<group>"; };
 		FB76F90629BAAC5500A08942 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		FB76F90829BAAD0000A08942 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		FB8122A929DDCE2E00419DF0 /* UknownDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UknownDevice.swift; sourceTree = "<group>"; };
 		FB8291ED29C0E1BF00EFB3C2 /* UserState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserState.swift; sourceTree = "<group>"; };
 		FB8291EF29C0E4C500EFB3C2 /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -117,6 +119,7 @@
 				FB76F90429BAA26C00A08942 /* Attack.swift */,
 				FB51F268298C326900065C9C /* DeviceView.swift */,
 				FB8291EF29C0E4C500EFB3C2 /* Device.swift */,
+				FB8122A929DDCE2E00419DF0 /* UknownDevice.swift */,
 				FB51F26A298C329400065C9C /* NetworkView.swift */,
 				FB51F266298C324400065C9C /* AttackView.swift */,
 				FB76F90629BAAC5500A08942 /* LoginView.swift */,
@@ -283,6 +286,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FB8122AA29DDCE2E00419DF0 /* UknownDevice.swift in Sources */,
 				FB8291EE29C0E1BF00EFB3C2 /* UserState.swift in Sources */,
 				FB51F267298C324400065C9C /* AttackView.swift in Sources */,
 				FB76F90729BAAC5500A08942 /* LoginView.swift in Sources */,

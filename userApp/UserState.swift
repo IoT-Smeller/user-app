@@ -2,7 +2,7 @@
 //  UserState.swift
 //  userApp
 //
-//  Created by Colette Bradley on 3/14/23.
+//  Created by Jaden Ngo on 3/14/23.
 //
 
 import Foundation

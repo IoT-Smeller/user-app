@@ -2,7 +2,7 @@
 //  LoginView.swift
 //  userApp
 //
-//  Created by Colette Bradley on 3/9/23.
+//  Created by Jaden Ngo on 3/9/23.
 //
 
 import SwiftUI
@@ -53,7 +53,8 @@ struct LoginView: View {
             let (data, _) = try await URLSession.shared.upload(for: request, from: encoded)
             
             let decodedUser = try JSONDecoder().decode(UserObject.self, from: data)
-            user.user_id = decodedUser.user_id
+           // user.user_id = decodedUser.user_id   **** CHANGE BACK ******
+            user.user_id = "69696969-4200-4200-4200-696969696969"
             confirmationMessage = "User created: \(user.user_id)"
             showingConfirmation = true
             us.isLoggedIn = true

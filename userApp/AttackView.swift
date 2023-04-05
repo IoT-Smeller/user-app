@@ -8,72 +8,14 @@
 import SwiftUI
 import Foundation
 
-// vulnerabilities = ["Low", "Medium", "High"]
-
 class SelectedAttack: ObservableObject {
     static let selAttack = SelectedAttack()
     
     @Published var id: Int = 2
 }
 
-class attackObjs: ObservableObject {
-    @Published var atts: [AttackObject] = []
-
-      func getUsers() {
-          guard let url = URL(string: "****") else { fatalError("Missing URL") }
-
-          let urlRequest = URLRequest(url: url)
-
-          let dataTask = URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
-              if let error = error {
-                  print("Request error: ", error)
-                  return
-              }
-
-              guard let response = response as? HTTPURLResponse else { return }
-
-              if response.statusCode == 200 {
-                  guard let data = data else { return }
-                  DispatchQueue.main.async {
-                      do {
-                          let decodedUsers = try JSONDecoder().decode([AttackObject].self, from: data)
-                          self.atts = decodedUsers
-                      } catch let error {
-                          print("Error decoding: ", error)
-                      }
-                  }
-              }
-          }
-
-          dataTask.resume()
-      }
-}
-
-struct Attack: Identifiable, Hashable {
-    let id: Int
-    let name: String
-    let timestamp: String
-    
-    static func todayAttacks() -> [Attack] {
-        let todayAttacks: [Attack] = [
-            Attack(id: 2, name: "Deauthentication", timestamp: "30m ago")
-        ]
-        
-        return todayAttacks
-    }
-    
-    static func prevAttacks() -> [Attack] {
-        let prevAttacks: [Attack] = [
-            Attack(id: 1, name: "Deauthentication", timestamp: "2d ago"),
-            Attack(id: 3, name: "Deauthentication", timestamp: "4d ago")
-        ]
-        
-        return prevAttacks
-    }
-}
-
 struct AttackView: View {
-    let attack: Attack
+    let attack: AttackObject
     let isExpanded: Bool
     
     var body: some View {
@@ -88,10 +30,10 @@ struct AttackView: View {
         VStack(alignment: .leading) {
             
             HStack {
-                Text(attack.name).font(.title3)
-                Spacer()
-                Text(attack.timestamp).font(.title3)
-                Spacer()
+                let statusColor = getColor(status: attack.severity)
+                Text("\(attack.attack_type)").font(.title3)
+                Text("Timestamp...")
+                Image(systemName: "circle.fill").resizable().frame(width: 10, height: 10).foregroundColor(statusColor)
             }
             
             if isExpanded {
@@ -100,19 +42,27 @@ struct AttackView: View {
                     Spacer()
                     Text("Affected Devices:").font(.subheadline)
                     VStack {
-                        DevicesListView(devices: Device.attacked()) // TODO: filter devices based on attack
+                      //==  DevicesListView(devices: Device.attacked()) // TODO: filter devices based on attack
                     }
                 }
             }
         }
     }
+    
+    func getColor(status: String) -> Color {
+        if (status == "Warning") {
+            return .yellow
+        } else if (status == "Attack") {
+            return .red
+        } else {
+            return .gray
+        }
+    }
 }
 
 struct AttacksListView: View {
-    let attacks: [Attack]
-    @State private var selection: Set<Attack> = []
-    @ObservedObject var selectedAttack = SelectedAttack.selAttack
-    //@StateObject var selectedAttack = SelectedAttack.id
+    let attacks: [AttackObject]
+    @State private var selection: Set<AttackObject> = []
 
     var body: some View {
         scrollForEach
@@ -138,13 +88,12 @@ struct AttacksListView: View {
         }
     }
     
-    private func selectDeselect(_ attack: Attack) {
+    private func selectDeselect(_ attack: AttackObject) {
         if selection.contains(attack) {
             selection.remove(attack)
         } else {
             closeOthers()
             selection.insert(attack)
-            selectedAttack.id = attack.id
         }
     }
     
@@ -155,12 +104,16 @@ struct AttacksListView: View {
 
 struct AttacksList_Previews: PreviewProvider {
     static var previews: some View {
-        AttacksListView(attacks: Attack.todayAttacks())
+        let a: [AttackObject] = []
+        AttacksListView(attacks: a)
     }
 }
 
 struct AttackPageView: View {
-    @Binding var activeTab: Int
+    //@Binding var activeTab: Int
+    @State private var confirmationMessageDevice = ""
+    @State private var showingConfirmationDevice = false
+    @State var attacks: [AttackObject] = []
     
     var body: some View {
 
@@ -177,48 +130,59 @@ struct AttackPageView: View {
                     Text("Today").bold().font(.title2)
                         .frame(maxWidth: 350, alignment: .leading)
 
-                    AttacksListView(attacks: Attack.todayAttacks())
+                    //AttacksListView(attacks: Attack.todayAttacks())
+                    AttacksListView(attacks: attacks) // TODO: add bool to indicate today
                     
                     Spacer()
                     
                     Text("Previous").bold().font(.title2)
                         .frame(maxWidth: 350, alignment: .leading)
                     
-                    AttacksListView(attacks: Attack.prevAttacks())
+                    //AttacksListView(attacks: Attack.prevAttacks())
+                    AttacksListView(attacks: attacks) // TODO: add bool to indicate today
                     
                     
                     Text("\n")
                     
                 }
                 .background(CustomColor.lightGray)
-            }
+            }.onAppear(perform: getAttackHistory)
         }
-        
-     /*   func addDevice() {
-            guard !text.trimmingCharacters(in: .whitespaces).isEmpty else {
-                return
-            }
-            
-            // TODO: Add functionality to check status of new device connection
-                // Add respective status color
-                // Add device to list & remove from "Other Devices"
-            
-            let newDevice = Device(title: text, color: Color.green)
-            viewModel.devices.append(newDevice)
-            text = ""
-        }
-        
-        func checkDeviceStatus() {
-            // Updates device status icon based on network connectivity
-        }
-    }*/
+    
+    func getAttackHistory() {
+        guard let url = URL(string: "http://iotsmeller.roshinator.com:8080/history?user_id=69696969-4200-4200-4200-696969696969&count=10") else { fatalError("Missing URL") }
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+
+        let dataTask = URLSession.shared.dataTask(with: request) { (data, response, error) in
+               if let error = error {
+                   print("Request error: ", error)
+                   return
+               }
+
+            guard response is HTTPURLResponse else { return }
+
+               if let data = data {
+                   DispatchQueue.main.async {
+                       do {
+                           attacks = try JSONDecoder().decode([AttackObject].self, from: data)
+                       } catch let error {
+                           confirmationMessageDevice = "Error Decoding: \(error)"
+                           showingConfirmationDevice = true
+                       }
+                   }
+               }
+           }
+           dataTask.resume()
+    }
 }
 
 struct AttackView_Previews: PreviewProvider {
     @State static var activeTab = 3
     
     static var previews: some View {
-        AttackPageView(activeTab: $activeTab).tag(3)
+        AttackPageView().tag(3)
     }
 }
 

@@ -2,7 +2,7 @@
 //  User.swift
 //  userApp
 //
-//  Created by Colette Bradley on 3/9/23.
+//  Created by Jaden Ngo on 3/9/23.
 //
 
 import Foundation

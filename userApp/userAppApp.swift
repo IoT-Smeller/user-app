@@ -2,7 +2,7 @@
 //  userAppApp.swift
 //  userApp
 //
-//  Created by Colette Bradley on 2/2/23.
+//  Created by Jaden Ngo on 2/2/23.
 //
 
 import SwiftUI
