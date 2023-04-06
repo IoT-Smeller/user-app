@@ -8,17 +8,12 @@
 import SwiftUI
 import Foundation
 
-class SelectedAttack: ObservableObject {
-    static let selAttack = SelectedAttack()
-    
-    @Published var id: Int = 2
-}
-
 struct AttackView: View {
     let attack: AttackObject
     let isExpanded: Bool
     
     var body: some View {
+        
         HStack {
             content
             Spacer()
@@ -27,23 +22,24 @@ struct AttackView: View {
     }
     
     private var content: some View {
+        
         VStack(alignment: .leading) {
             
             HStack {
                 let statusColor = getColor(status: attack.severity)
                 Text("\(attack.attack_type)").font(.title3)
-                Text("Timestamp...")
                 Image(systemName: "circle.fill").resizable().frame(width: 10, height: 10).foregroundColor(statusColor)
+                Spacer()
+                Text("\(attack.timestampString ?? "Unkown Time")")
+                Spacer()
             }
             
             if isExpanded {
 
                 VStack(alignment: .leading) {
                     Spacer()
-                    Text("Affected Devices:").font(.subheadline)
-                    VStack {
-                      //==  DevicesListView(devices: Device.attacked()) // TODO: filter devices based on attack
-                    }
+                    Text("Affected Device:").font(.subheadline)
+                    Text("\(attack.device_name ?? "Unkown Name")").font(.subheadline)
                 }
             }
         }

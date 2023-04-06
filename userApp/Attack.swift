@@ -10,15 +10,17 @@ import Foundation
 class AttackObject: ObservableObject, Codable, Identifiable, Hashable {
     
     enum CodingKeys: CodingKey {
-        case history_id, user_id, timestamp, attack_type, severity, device_address
+        case history_id, user_id, timestamp, attack_type, severity, device_address, device_name, timestampString
     }
     
     @Published var history_id = ""
     @Published var user_id = ""
-    @Published var timestamp: [Int] = []
+    @Published var timestamp: [Int] = [] // year, day, hour, minute, second, nanosecond, offset hour, offset minute, offset second
     @Published var attack_type = ""
     @Published var severity = ""
     @Published var device_address = ""
+    @Published var device_name: String?
+    @Published var timestampString: String?
     
     init() { }
     
@@ -50,5 +52,26 @@ class AttackObject: ObservableObject, Codable, Identifiable, Hashable {
         attack_type = try container.decode(String.self, forKey: .attack_type)
         severity = try container.decode(String.self, forKey: .severity)
         device_address = try container.decode(String.self, forKey: .device_address)
+      //  device_name = try container.decodeIfPresent(String.self, forKey: .device_name) ?? ""
+        for d in deviceInfo.knownDevices {
+            if d.device_id == device_address {
+                device_name = d.device_name
+            }
+        }
+        timestampString = utcToLocal(dateStr: "\(timestamp[2]):\(timestamp[3]):\(timestamp[4])")
+    }
+    
+    func utcToLocal(dateStr: String) -> String? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "H:mm:ss"
+        dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
+        
+        if let date = dateFormatter.date(from: dateStr) {
+            dateFormatter.timeZone = TimeZone.current
+            dateFormatter.dateFormat = "h:mm a"
+        
+            return dateFormatter.string(from: date)
+        }
+        return nil
     }
 }

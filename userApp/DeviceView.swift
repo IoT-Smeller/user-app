@@ -6,9 +6,12 @@
 //
 
 import SwiftUI
-import Foundation 
+import Foundation
 
-public var vulnerabilities = ["Low", "Medium", "High"]
+struct deviceInfo {
+    static var knownDevices: [DeviceObject] = []
+    static var unknownDevices: [UnkownDeviceObject] = []
+}
 
 class SelectedTab: ObservableObject {
     @Published var id: Int
@@ -83,8 +86,6 @@ struct UnkownDeviceView: View {
     let device: UnkownDeviceObject
     let isExpanded: Bool
     
-    @EnvironmentObject var selTab: SelectedTab
-    
     var body: some View {
         HStack {
             content
@@ -98,7 +99,6 @@ struct UnkownDeviceView: View {
             
             HStack {
                 Text("\(device.device_name ?? "Unkown Name")").font(.title3)
-               // Text("\(device.device_name)").font(.title3)
                 Image(systemName: "circle.fill").resizable().frame(width: 10, height: 10).foregroundColor(.gray)
             }
         }
@@ -272,6 +272,7 @@ struct DevicePageView: View {
                    DispatchQueue.main.async {
                        do {
                            knownDevices = try JSONDecoder().decode([DeviceObject].self, from: data)
+                           deviceInfo.knownDevices = knownDevices
                        } catch let error {
                            confirmationMessageDevice = "Error Decoding: \(error)"
                            showingConfirmationDevice = true
@@ -298,6 +299,7 @@ struct DevicePageView: View {
                    DispatchQueue.main.async {
                        do {
                            unknownDevices = try JSONDecoder().decode([UnkownDeviceObject].self, from: data)
+                           deviceInfo.unknownDevices = unknownDevices
                        } catch let error {
                            confirmationMessageDevice = "Error Decoding: \(error)"
                            showingConfirmationDevice = true
