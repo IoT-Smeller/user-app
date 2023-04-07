@@ -123,13 +123,13 @@
 				FB8291EF29C0E4C500EFB3C2 /* Device.swift */,
 				FB8122A929DDCE2E00419DF0 /* UknownDevice.swift */,
 				FB51F26A298C329400065C9C /* NetworkView.swift */,
+				FB1080D629E08D2E0070314F /* AddDeviceView.swift */,
 				FB51F266298C324400065C9C /* AttackView.swift */,
 				FB76F90629BAAC5500A08942 /* LoginView.swift */,
 				FB8291ED29C0E1BF00EFB3C2 /* UserState.swift */,
 				FB76F90829BAAD0000A08942 /* User.swift */,
 				FB51F240298C31F000065C9C /* Assets.xcassets */,
 				FB51F242298C31F000065C9C /* Preview Content */,
-				FB1080D629E08D2E0070314F /* AddDeviceView.swift */,
 			);
 			path = userApp;
 			sourceTree = "<group>";

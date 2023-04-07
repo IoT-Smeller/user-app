@@ -33,6 +33,5 @@ struct ApplicationSwitcher: View {
         } else {
             LoginView(user: user)
         }
-        
     }
 }

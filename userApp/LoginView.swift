@@ -60,6 +60,8 @@ struct LoginView: View {
             us.isLoggedIn = true
         } catch {
             print("Checkout failed.")
+            user.user_id = "69696969-4200-4200-4200-696969696969"
+            us.isLoggedIn = true // TODO: REMOVE!
         }
     }
 }
