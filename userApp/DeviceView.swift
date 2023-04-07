@@ -148,7 +148,7 @@ struct DevicesListView: View {
 }
 
 struct UnknownDevicesListView: View {
-    let unknownDevices: [UnkownDeviceObject]
+    let ukd: [UnkownDeviceObject]
     @State private var selection: Set<UnkownDeviceObject> = []
 
     var body: some View {
@@ -157,7 +157,7 @@ struct UnknownDevicesListView: View {
     }
     
     var list: some View {
-        List(unknownDevices) { device in
+        List(ukd) { device in
             UnkownDeviceView(device: device, isExpanded: self.selection.contains(device))
                 .onTapGesture { self.selectDeselect(device) }
                 .animation(.easeInOut(duration: 2), value: 1)
@@ -166,7 +166,7 @@ struct UnknownDevicesListView: View {
     
     var scrollForEach: some View {
         ScrollView {
-            ForEach(unknownDevices) { device in
+            ForEach(ukd) { device in
                 UnkownDeviceView(device: device, isExpanded: self.selection.contains(device))
                     .modifier(ListRowModifier())
                     .onTapGesture { self.selectDeselect(device) }
@@ -233,11 +233,11 @@ struct DevicePageView: View {
 
                     DevicesListView(devices: knownDevices)
                     
-                    
                     Text("Other Devices").bold().font(.title2)
                         .frame(maxWidth: 350, alignment: .leading).offset()
                     Spacer()
-                    UnknownDevicesListView(unknownDevices: unknownDevices)
+                    
+                    UnknownDevicesListView(ukd: unknownDevices)
                     
                     Text("\n")
                     

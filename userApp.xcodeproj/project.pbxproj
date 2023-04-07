@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FB1080D729E08D2F0070314F /* AddDeviceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB1080D629E08D2E0070314F /* AddDeviceView.swift */; };
 		FB51F23D298C31EE00065C9C /* userAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB51F23C298C31EE00065C9C /* userAppApp.swift */; };
 		FB51F23F298C31EE00065C9C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB51F23E298C31EE00065C9C /* ContentView.swift */; };
 		FB51F241298C31F000065C9C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FB51F240298C31F000065C9C /* Assets.xcassets */; };
@@ -44,6 +45,7 @@
 
 /* Begin PBXFileReference section */
 		FB0D64C229BABE3600FC32DD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		FB1080D629E08D2E0070314F /* AddDeviceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDeviceView.swift; sourceTree = "<group>"; };
 		FB51F239298C31EE00065C9C /* userApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = userApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB51F23C298C31EE00065C9C /* userAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = userAppApp.swift; sourceTree = "<group>"; };
 		FB51F23E298C31EE00065C9C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -127,6 +129,7 @@
 				FB76F90829BAAD0000A08942 /* User.swift */,
 				FB51F240298C31F000065C9C /* Assets.xcassets */,
 				FB51F242298C31F000065C9C /* Preview Content */,
+				FB1080D629E08D2E0070314F /* AddDeviceView.swift */,
 			);
 			path = userApp;
 			sourceTree = "<group>";
@@ -292,6 +295,7 @@
 				FB76F90729BAAC5500A08942 /* LoginView.swift in Sources */,
 				FB51F23F298C31EE00065C9C /* ContentView.swift in Sources */,
 				FB51F269298C326900065C9C /* DeviceView.swift in Sources */,
+				FB1080D729E08D2F0070314F /* AddDeviceView.swift in Sources */,
 				FB76F90929BAAD0000A08942 /* User.swift in Sources */,
 				FB51F26B298C329400065C9C /* NetworkView.swift in Sources */,
 				FB51F23D298C31EE00065C9C /* userAppApp.swift in Sources */,

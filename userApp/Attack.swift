@@ -10,7 +10,7 @@ import Foundation
 class AttackObject: ObservableObject, Codable, Identifiable, Hashable {
     
     enum CodingKeys: CodingKey {
-        case history_id, user_id, timestamp, attack_type, severity, device_address, device_name, timestampString
+        case history_id, user_id, timestamp, attack_type, severity, device_address, device_name, convertedTimestamp
     }
     
     @Published var history_id = ""
@@ -19,8 +19,8 @@ class AttackObject: ObservableObject, Codable, Identifiable, Hashable {
     @Published var attack_type = ""
     @Published var severity = ""
     @Published var device_address = ""
+    @Published var convertedTimestamp: String?
     @Published var device_name: String?
-    @Published var timestampString: String?
     
     init() { }
     
@@ -52,13 +52,16 @@ class AttackObject: ObservableObject, Codable, Identifiable, Hashable {
         attack_type = try container.decode(String.self, forKey: .attack_type)
         severity = try container.decode(String.self, forKey: .severity)
         device_address = try container.decode(String.self, forKey: .device_address)
+        convertedTimestamp = ""
       //  device_name = try container.decodeIfPresent(String.self, forKey: .device_name) ?? ""
         for d in deviceInfo.knownDevices {
             if d.device_id == device_address {
                 device_name = d.device_name
             }
         }
-        timestampString = utcToLocal(dateStr: "\(timestamp[2]):\(timestamp[3]):\(timestamp[4])")
+    //    let dateFormatter = DateFormatter()
+     //   timestampString = dateFormatter.string(from: date!)
+        //timestampString = utcToLocal(dateStr: "\(timestamp[2]):\(timestamp[3]):\(timestamp[4])")
     }
     
     func utcToLocal(dateStr: String) -> String? {

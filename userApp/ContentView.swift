@@ -41,8 +41,8 @@ struct ContentView: View {
             
             NetworkView().tag(2)
                 .tabItem {
-                    Image(systemName: "wifi")
-                    Text("Network")
+                    Image(systemName: "shield.lefthalf.filled")
+                    Text("Home")
                 }
             
             AttackPageView().tag(3)

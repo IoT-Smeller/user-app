@@ -11,7 +11,8 @@ import Foundation
 struct AttackView: View {
     let attack: AttackObject
     let isExpanded: Bool
-    
+    let formatter4 = DateFormatter().dateFormat = "HH:mm E, d MMM y"
+   
     var body: some View {
         
         HStack {
@@ -30,15 +31,14 @@ struct AttackView: View {
                 Text("\(attack.attack_type)").font(.title3)
                 Image(systemName: "circle.fill").resizable().frame(width: 10, height: 10).foregroundColor(statusColor)
                 Spacer()
-                Text("\(attack.timestampString ?? "Unkown Time")")
+                let dateStr = convertDate(times: attack.timestamp)
+                Text("\(dateStr)")
                 Spacer()
             }
             
             if isExpanded {
-
-                VStack(alignment: .leading) {
-                    Spacer()
-                    Text("Affected Device:").font(.subheadline)
+                HStack {
+                    Text("Affected Device: ").font(.subheadline)
                     Text("\(attack.device_name ?? "Unkown Name")").font(.subheadline)
                 }
             }
@@ -53,6 +53,19 @@ struct AttackView: View {
         } else {
             return .gray
         }
+    }
+    
+    func convertDate(times: [Int]) -> String {
+        let df = DateFormatter()
+        df.dateStyle = .medium
+        df.timeStyle = .medium
+        
+        var d = DateComponents()
+        d.year = times[0]
+        d.day = times[1]
+        let userCalendar = Calendar(identifier: .gregorian)
+        let temp = userCalendar.date(from: d)
+        return df.string(from: temp ?? Date())
     }
 }
 
