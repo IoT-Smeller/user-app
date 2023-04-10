@@ -9,7 +9,7 @@ import SwiftUI
 
 struct AddDeviceView: View {
     @State var unknownDevices: [UnkownDeviceObject] = []
-    @State var allKnownDevices: [DeviceObject] = []
+    @State var KnownDevices: [KnownDeviceObject] = []
     
     var body: some View {
         VStack {
@@ -21,11 +21,11 @@ struct AddDeviceView: View {
             Spacer()
                 .frame(height: 50)
             
-            Text("Add Device").bold().font(.title2)
+            Text("Select Manufacturer").bold().font(.title2)
                 .frame(maxWidth: 350, alignment: .leading).offset()
             Spacer()
             
-            NewDevicesListView(ukd: unknownDevices, ald: allKnownDevices)
+            NewDevicesListView(ukd: unknownDevices, ald: KnownDevices)
             
             Text("\n")
             
@@ -60,7 +60,7 @@ struct AddDeviceView: View {
     }
     
     func getAllDevices() {
-        guard let url = URL(string: "http://iotsmeller.roshinator.com:8080/device?user_id=69696969-4200-4200-4200-696969696969&prefix=69:69:69") else { fatalError("Missing URL") }
+        guard let url = URL(string: "http://iotsmeller.roshinator.com:8080/info?user_id=69696969-4200-4200-4200-696969696969&prefix=69:69:69") else { fatalError("Missing URL") }
 
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
@@ -77,7 +77,8 @@ struct AddDeviceView: View {
                if let data = data {
                    DispatchQueue.main.async {
                        do {
-                           allKnownDevices = try JSONDecoder().decode([DeviceObject].self, from: data)
+                           KnownDevices = try JSONDecoder().decode([KnownDeviceObject].self, from: data)
+                           getSubDevices()
                        } catch let error {
                            print(error)
                        }
@@ -86,10 +87,23 @@ struct AddDeviceView: View {
            }
            dataTask.resume()
     }
+    
+    func getSubDevices() {
+        var temp: [UnkownDeviceObject] = []
+        for knownDevice in KnownDevices {
+            for unknownDevice in unknownDevices {
+                if (knownDevice.device_manf == unknownDevice.device_id.prefix(8)) {
+                    temp.append(unknownDevice)
+                }
+            }
+            knownDevice.devices = temp
+            temp = []
+        }
+    }
 }
 
-struct NewDeviceView: View {
-    let device: UnkownDeviceObject
+struct KnownDeviceView: View {
+    let device: KnownDeviceObject
     let isExpanded: Bool
     
     var body: some View {
@@ -103,8 +117,8 @@ struct NewDeviceView: View {
     private var content: some View {
         VStack(alignment: .leading) {
             
-            HStack {
-                Text("\(device.device_name ?? "Unkown Name")").font(.title3)
+            NavigationLink(destination: AddDeviceView2(selectedManufacturer: device)) {
+                Text("\(device.device_name)").font(.title3).foregroundColor(.black)
                 Image(systemName: "circle.fill").resizable().frame(width: 10, height: 10).foregroundColor(.gray)
             }
         }
@@ -113,8 +127,8 @@ struct NewDeviceView: View {
 
 struct NewDevicesListView: View {
     let ukd: [UnkownDeviceObject]
-    let ald: [DeviceObject]
-    @State private var selection: Set<UnkownDeviceObject> = []
+    let ald: [KnownDeviceObject]
+    @State private var selection: Set<KnownDeviceObject> = []
 
     var body: some View {
         scrollForEach
@@ -122,64 +136,23 @@ struct NewDevicesListView: View {
     }
     
     var list: some View {
-        List(ukd) { device in
-            UnkownDeviceView(device: device, isExpanded: self.selection.contains(device))
-                .onTapGesture { self.findDevice(device) }
+        List(ald) { device in
+            KnownDeviceView(device: device, isExpanded: self.selection.contains(device))
                 .animation(.easeInOut(duration: 2), value: 1)
         }
     }
     
     var scrollForEach: some View {
         ScrollView {
-            ForEach(ukd) { device in
-                UnkownDeviceView(device: device, isExpanded: self.selection.contains(device))
+            ForEach(ald) { device in
+                KnownDeviceView(device: device, isExpanded: self.selection.contains(device))
                     .modifier(ListRowModifier())
-                    .onTapGesture { self.findDevice(device) }
                     .animation(.easeInOut(duration: 2), value: 1)
             }
         }
     }
     
-    private func findDevice(_ device: UnkownDeviceObject) {
-        for d in ald {
-            if (d.device_id == device.device_id) {
-                addDevice(device: d)
-            }
-        }
-    }
-    
-    func addDevice(device: DeviceObject) {
-        guard let url = URL(string: "http://iotsmeller.roshinator.com:8080/device") else { fatalError("Missing URL") }
-
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        
-        let json: [String: Any] = [
-            "device_id": device.device_id,
-            "user_id": device.user_id,
-            "connection_status": device.connection_status,
-            "severity": device.severity,
-            "device_manf": device.device_manf,
-            "device_name": device.device_name
-        ]
-
-        let jsonData = try? JSONSerialization.data(withJSONObject: json)
-        request.httpBody = jsonData
-
-        let dataTask = URLSession.shared.dataTask(with: request) { (data, response, error) in
-            guard let data = data, error == nil else {
-                print(error?.localizedDescription ?? "No data")
-                return
-            }
-            let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
-            if let responseJSON = responseJSON as? [String: Any] {
-                print(responseJSON)
-            }
-       }
-       dataTask.resume()
-    }
-    
-    private func selectDeselect(_ device: UnkownDeviceObject) {
+    private func selectDeselect(_ device: KnownDeviceObject) {
         if selection.contains(device) {
             selection.remove(device)
         } else {

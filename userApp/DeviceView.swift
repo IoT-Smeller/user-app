@@ -9,8 +9,9 @@ import SwiftUI
 import Foundation
 
 struct deviceInfo {
-    static var knownDevices: [DeviceObject] = []
+    static var knownDevices: [KnownDeviceObject] = []
     static var unknownDevices: [UnkownDeviceObject] = []
+    static var connectedDevices: [DeviceObject] = []
 }
 
 class SelectedTab: ObservableObject {
@@ -272,7 +273,8 @@ struct DevicePageView: View {
                    DispatchQueue.main.async {
                        do {
                            knownDevices = try JSONDecoder().decode([DeviceObject].self, from: data)
-                           deviceInfo.knownDevices = knownDevices
+                      //     deviceInfo.knownDevices = knownDevices
+                           deviceInfo.connectedDevices = knownDevices
                        } catch let error {
                            confirmationMessageDevice = "Error Decoding: \(error)"
                            showingConfirmationDevice = true

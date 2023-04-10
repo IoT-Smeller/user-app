@@ -7,38 +7,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "D7315982-30DF-4451-86FB-E4CEE310FAC4"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "userApp/LoginView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "53"
-            endingLineNumber = "53"
-            landmarkName = "getUser()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "B2B10D04-1B50-4FD9-B06E-EC6B45909D26"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "userApp/LoginView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "55"
-            endingLineNumber = "55"
-            landmarkName = "getUser()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "67819A43-BB7F-4A23-9A62-6A6B173F69A5"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -46,8 +14,8 @@
             filePath = "userApp/LoginView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "47"
-            endingLineNumber = "47"
+            startingLineNumber = "105"
+            endingLineNumber = "105"
             landmarkName = "getUser()"
             landmarkType = "7">
          </BreakpointContent>
@@ -62,8 +30,8 @@
             filePath = "userApp/DeviceView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "274"
-            endingLineNumber = "274"
+            startingLineNumber = "275"
+            endingLineNumber = "275"
             landmarkName = "getConnectedDevices()"
             landmarkType = "7">
          </BreakpointContent>
@@ -78,8 +46,8 @@
             filePath = "userApp/DeviceView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "271"
-            endingLineNumber = "271"
+            startingLineNumber = "272"
+            endingLineNumber = "272"
             landmarkName = "getConnectedDevices()"
             landmarkType = "7">
             <Locations>
@@ -126,8 +94,8 @@
             filePath = "userApp/DeviceView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "269"
-            endingLineNumber = "269"
+            startingLineNumber = "270"
+            endingLineNumber = "270"
             landmarkName = "getConnectedDevices()"
             landmarkType = "7">
          </BreakpointContent>
@@ -135,46 +103,46 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "588DFF1E-9E4E-42F9-ABC5-E73F36F9D6F4"
-            shouldBeEnabled = "No"
+            uuid = "E7B205FF-EDCE-4F50-BF6B-D304208012E3"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "userApp/AddDeviceView.swift"
+            filePath = "userApp/AddDeviceView2.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "169"
-            endingLineNumber = "169"
-            landmarkName = "addDevice(device:)"
+            startingLineNumber = "83"
+            endingLineNumber = "83"
+            landmarkName = "addDevice(_:)"
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "588DFF1E-9E4E-42F9-ABC5-E73F36F9D6F4 - 21969a5dd22de37e"
+                  uuid = "E7B205FF-EDCE-4F50-BF6B-D304208012E3 - 71b01f44c6ca7f16"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "userApp.NewDevicesListView.addDevice(device: userApp.DeviceObject) -&gt; ()"
+                  symbolName = "userApp.UnknownDevicesListView2.addDevice(userApp.UnkownDeviceObject) -&gt; ()"
                   moduleName = "userApp"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/colette/Desktop/JadenSeniorDesign/userApp/userApp/AddDeviceView.swift"
+                  urlString = "file:///Users/colette/Desktop/JadenSeniorDesign/userApp/userApp/AddDeviceView2.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "169"
-                  endingLineNumber = "169"
-                  offsetFromSymbolStart = "1805">
+                  startingLineNumber = "83"
+                  endingLineNumber = "83"
+                  offsetFromSymbolStart = "1859">
                </Location>
                <Location
-                  uuid = "588DFF1E-9E4E-42F9-ABC5-E73F36F9D6F4 - 4c9db357e93b47f"
+                  uuid = "E7B205FF-EDCE-4F50-BF6B-D304208012E3 - 7dca21068c61cdf7"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "closure #1 @Sendable (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in userApp.NewDevicesListView.addDevice(device: userApp.DeviceObject) -&gt; ()"
+                  symbolName = "closure #1 @Sendable (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in userApp.UnknownDevicesListView2.addDevice(userApp.UnkownDeviceObject) -&gt; ()"
                   moduleName = "userApp"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/colette/Desktop/JadenSeniorDesign/userApp/userApp/AddDeviceView.swift"
+                  urlString = "file:///Users/colette/Desktop/JadenSeniorDesign/userApp/userApp/AddDeviceView2.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "170"
-                  endingLineNumber = "170"
+                  startingLineNumber = "84"
+                  endingLineNumber = "84"
                   offsetFromSymbolStart = "142">
                </Location>
             </Locations>
@@ -183,80 +151,129 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "50901789-3E8B-4046-8815-93CA69A03C72"
-            shouldBeEnabled = "No"
+            uuid = "F78047B3-168B-4FAA-AEFF-D626DECD7550"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "userApp/AddDeviceView.swift"
+            filePath = "userApp/AddDeviceView2.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "174"
-            endingLineNumber = "174"
-            landmarkName = "addDevice(device:)"
+            startingLineNumber = "88"
+            endingLineNumber = "88"
+            landmarkName = "addDevice(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "C527823D-AA2E-4162-90A3-CCA8533B2C7D"
+            uuid = "63F4E384-8BE5-477B-8ECA-FABD03FF432E"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "userApp/AddDeviceView.swift"
+            filePath = "userApp/AddDeviceView2.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "152"
-            endingLineNumber = "152"
-            landmarkName = "addDevice(device:)"
+            startingLineNumber = "91"
+            endingLineNumber = "91"
+            landmarkName = "addDevice(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "DB72424F-6303-4D0A-AA3A-B82C8FB25088"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "userApp/AddDeviceView2.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "90"
+            endingLineNumber = "90"
+            landmarkName = "addDevice(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E7EA7D16-CEDE-49CF-95BF-E93EC58EE93E"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "userApp/LoginView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "112"
+            endingLineNumber = "112"
+            landmarkName = "getUser()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "640A9BB5-0C86-4BEB-A627-F6AF382ABAE8"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "userApp/LoginView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "119"
+            endingLineNumber = "119"
+            landmarkName = "getUser()"
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "C527823D-AA2E-4162-90A3-CCA8533B2C7D - 21969a5dd22de149"
+                  uuid = "640A9BB5-0C86-4BEB-A627-F6AF382ABAE8 - 41a9ff575037e25b"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "userApp.NewDevicesListView.addDevice(device: userApp.DeviceObject) -&gt; ()"
+                  symbolName = "closure #1 @Sendable (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in userApp.LoginView.getUser() async -&gt; ()"
                   moduleName = "userApp"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/colette/Desktop/JadenSeniorDesign/userApp/userApp/AddDeviceView.swift"
+                  urlString = "file:///Users/colette/Desktop/JadenSeniorDesign/userApp/userApp/LoginView.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "152"
-                  endingLineNumber = "152"
-                  offsetFromSymbolStart = "379">
+                  startingLineNumber = "119"
+                  endingLineNumber = "119"
+                  offsetFromSymbolStart = "804">
                </Location>
                <Location
-                  uuid = "C527823D-AA2E-4162-90A3-CCA8533B2C7D - 21969a5dd22de149"
+                  uuid = "640A9BB5-0C86-4BEB-A627-F6AF382ABAE8 - 41a9ff575037e25b"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "userApp.NewDevicesListView.addDevice(device: userApp.DeviceObject) -&gt; ()"
+                  symbolName = "closure #1 @Sendable (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in userApp.LoginView.getUser() async -&gt; ()"
                   moduleName = "userApp"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/colette/Desktop/JadenSeniorDesign/userApp/userApp/AddDeviceView.swift"
+                  urlString = "file:///Users/colette/Desktop/JadenSeniorDesign/userApp/userApp/LoginView.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "152"
-                  endingLineNumber = "152"
-                  offsetFromSymbolStart = "511">
-               </Location>
-               <Location
-                  uuid = "C527823D-AA2E-4162-90A3-CCA8533B2C7D - 21969a5dd22de149"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "userApp.NewDevicesListView.addDevice(device: userApp.DeviceObject) -&gt; ()"
-                  moduleName = "userApp"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/colette/Desktop/JadenSeniorDesign/userApp/userApp/AddDeviceView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "152"
-                  endingLineNumber = "152"
-                  offsetFromSymbolStart = "2275">
+                  startingLineNumber = "119"
+                  endingLineNumber = "119"
+                  offsetFromSymbolStart = "1016">
                </Location>
             </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B523D507-F43F-4224-BDEB-6D889EAF454E"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "userApp/LoginView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "121"
+            endingLineNumber = "121"
+            landmarkName = "getUser()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

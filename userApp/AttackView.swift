@@ -11,7 +11,6 @@ import Foundation
 struct AttackView: View {
     let attack: AttackObject
     let isExpanded: Bool
-    let formatter4 = DateFormatter().dateFormat = "HH:mm E, d MMM y"
    
     var body: some View {
         
@@ -63,6 +62,9 @@ struct AttackView: View {
         var d = DateComponents()
         d.year = times[0]
         d.day = times[1]
+        d.hour = times[2]
+        d.minute = times[3]
+        d.second = times[4]
         let userCalendar = Calendar(identifier: .gregorian)
         let temp = userCalendar.date(from: d)
         return df.string(from: temp ?? Date())
