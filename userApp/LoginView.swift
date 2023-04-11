@@ -123,6 +123,9 @@ struct LoginView: View {
         request.httpMethod = "POST"
         
         request.httpBody = jsonData
+        
+        print(String(data: request.httpBody ?? Data(), encoding: .utf8)!)
+        print("HEADERS \n \(request.allHTTPHeaderFields)")
         let dataTask = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data, error == nil else {
                 print(error?.localizedDescription ?? "No data")
