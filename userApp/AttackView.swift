@@ -30,7 +30,7 @@ struct AttackView: View {
                 Text("\(attack.attack_type)").font(.title3)
                 Image(systemName: "circle.fill").resizable().frame(width: 10, height: 10).foregroundColor(statusColor)
                 Spacer()
-                Text("\(attack.convertedTimestamp ?? "")")
+                Text("\(attack.timestampString ?? "")")
                 Spacer()
             }
             
@@ -126,7 +126,7 @@ struct AttackPageView: View {
                         .frame(maxWidth: 350, alignment: .leading)
 
                     //AttacksListView(attacks: Attack.todayAttacks())
-                    AttacksListView(attacks: attacks.filter {$0.convertedTimestamp ?? "" >= getDate(days: 10) } )
+                    AttacksListView(attacks: attacks.filter {$0.timestampDate! >= getDate(days: 10) } )
                     
                     Spacer()
                     
@@ -134,7 +134,7 @@ struct AttackPageView: View {
                         .frame(maxWidth: 350, alignment: .leading)
                     
                     //AttacksListView(attacks: Attack.prevAttacks())
-                    AttacksListView(attacks: attacks.filter {$0.convertedTimestamp ?? "" < getDate(days: 10) } )
+                    AttacksListView(attacks: attacks.filter {$0.timestampDate! < getDate(days: 10) } )
                     
                     
                     Text("\n")
@@ -172,15 +172,14 @@ struct AttackPageView: View {
            dataTask.resume()
     }
      
-    func getDate(days: Int) -> String {
+    func getDate(days: Int) -> Date {
         let df = DateFormatter()
         df.dateStyle = .medium
         df.timeStyle = .medium
         
         let date = Date()
         let result = Calendar.current.date(byAdding: .day, value: -days, to: date)
-        print(df.string(from: result!))
-        return df.string(from: result!)
+        return result!
     }
 }
 

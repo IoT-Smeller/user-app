@@ -19,7 +19,8 @@ class AttackObject: ObservableObject, Codable, Identifiable, Hashable {
     @Published var attack_type = ""
     @Published var severity = ""
     @Published var device_address = ""
-    @Published var convertedTimestamp: String?
+    @Published var timestampDate: Date?
+    @Published var timestampString: String?
     @Published var device_name: String?
     
     init() { }
@@ -71,8 +72,8 @@ class AttackObject: ObservableObject, Codable, Identifiable, Hashable {
         d.minute = timestamp[3]
         d.second = timestamp[4]
         let userCalendar = Calendar(identifier: .gregorian)
-        let temp = userCalendar.date(from: d)
-        convertedTimestamp = df.string(from: temp ?? Date())
+        timestampDate = userCalendar.date(from: d)
+        timestampString = df.string(from: timestampDate ?? Date())
     }
     
     func utcToLocal(dateStr: String) -> String? {

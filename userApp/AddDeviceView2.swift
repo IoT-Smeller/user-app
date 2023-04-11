@@ -63,31 +63,33 @@ struct UnknownDevicesListView2: View {
     }
     
     func addDevice(_ device: UnkownDeviceObject) {
-        guard let url = URL(string: "http://iotsmeller.roshinator.com:8080/device") else { fatalError("Missing URL") }
-        
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        
         let json: [String: Any] = [
             "device_id": device.device_id,
             "user_id": device.user_id,
             "connection_status": "Offline",
             "severity": "Attack",
             "device_manf": sm.device_manf,
-            "device_name": device.device_name ?? ""
+            "device_name": sm.device_name
         ]
-        
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
+        
+        guard let url = URL(string: "http://iotsmeller.roshinator.com:8080/device") else { fatalError("Missing URL") }
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
         request.httpBody = jsonData
         
+        print(String(data: request.httpBody ?? Data(), encoding: .utf8)!)
         let dataTask = URLSession.shared.dataTask(with: request) { (data, response, error) in
             guard let data = data, error == nil else {
                 print(error?.localizedDescription ?? "No data")
                 return
             }
-            let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
-            if let responseJSON = responseJSON as? [String: Any] {
+            if let responseJSON = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
                 print(responseJSON)
+            } else {
+                print("Failed to add device")
             }
         }
         dataTask.resume()

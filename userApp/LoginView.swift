@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+//local_server_id:69696969-4200-4200-4200-696969696969
 //userid:69696969-4200-4200-4200-696969696969
 
 struct LoginView: View {
@@ -115,28 +116,31 @@ struct LoginView: View {
     }
     
     func getUser() async {
-        let json: [String: Any] = ["local_server_id": "69696969-4200-4200-4200-696969696969"]
+        let json: [String: Any] = ["local_server_id": serverId]
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
         
         let url = URL(string: "http://iotsmeller.roshinator.com:8080/user")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
-        
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
         request.httpBody = jsonData
         
         print(String(data: request.httpBody ?? Data(), encoding: .utf8)!)
-        print("HEADERS \n \(request.allHTTPHeaderFields)")
         let dataTask = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data, error == nil else {
                 print(error?.localizedDescription ?? "No data")
                 return
             }
             if let responseJSON = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
-                print(responseJSON)
-                confirmationMessage = "Result: \(responseJSON)"
-                showingConfirmationMessage = true
+                if let result = responseJSON["account_id"] {
+                    confirmationMessage = "Your corresponding User ID is: \(result) \n Please click the Sign In button to login."
+                    showingConfirmationMessage = true
+                    userId = String("\(result)")
+                }
             } else {
-               print("failed.")
+                confirmationMessage = "Failed to retrieve User Id. Please make sure entered Server ID is correct."
+                showingConfirmationMessage = true
             }
         }
         dataTask.resume()
