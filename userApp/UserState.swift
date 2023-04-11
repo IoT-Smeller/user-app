@@ -11,5 +11,6 @@ import Foundation
 class UserState: ObservableObject {
     
     @Published var isLoggedIn = false
+    @Published var userid = ""
     
 }

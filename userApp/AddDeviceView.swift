@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct AddDeviceView: View {
+    @EnvironmentObject var us: UserState
     @State var unknownDevices: [UnkownDeviceObject] = []
     @State var KnownDevices: [KnownDeviceObject] = []
     
@@ -34,7 +35,7 @@ struct AddDeviceView: View {
     }
     
     func getUnkownDevices() {
-        guard let url = URL(string: "http://iotsmeller.roshinator.com:8080/unknown-device?user_id=69696969-4200-4200-4200-696969696969") else { fatalError("Missing URL") }
+        guard let url = URL(string: "http://iotsmeller.roshinator.com:8080/unknown-device?user_id=\(us.userid)") else { fatalError("Missing URL") }
 
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
@@ -60,7 +61,7 @@ struct AddDeviceView: View {
     }
     
     func getAllDevices() {
-        guard let url = URL(string: "http://iotsmeller.roshinator.com:8080/info?user_id=69696969-4200-4200-4200-696969696969&prefix=69:69:69") else { fatalError("Missing URL") }
+        guard let url = URL(string: "http://iotsmeller.roshinator.com:8080/info?user_id=\(us.userid)&prefix=69:69:69") else { fatalError("Missing URL") }
 
         var request = URLRequest(url: url)
         request.httpMethod = "GET"

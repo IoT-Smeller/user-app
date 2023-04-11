@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+//userid:69696969-4200-4200-4200-696969696969
 
 struct LoginView: View {
     
@@ -26,24 +27,32 @@ struct LoginView: View {
         }
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 15) {
-            Spacer() // this use all space available above the TextField
+        VStack {
+            Spacer().frame(height: 50)
             
-            TextField("Server Id",
-                      text: $serverId ,
-                      prompt: Text("Server ID").foregroundColor(.red)
-            )
-            .padding(10)
-            .overlay {
-                RoundedRectangle(cornerRadius: 10)
-                    .stroke(.red, lineWidth: 2)
-            }
-            .padding(.horizontal)
+            Image(systemName: "shield.lefthalf.filled").resizable().frame(width: 50, height: 50).foregroundColor(CustomColor.lightBlue)
+            Text("WARN")
             
-            Button {
-                Task {
-                    await getUser()
+            VStack(alignment: .leading, spacing: 15) {
+                
+                Spacer()
+                
+                /** Server ID Text Field **/
+                TextField("Server Id",
+                          text: $serverId ,
+                          prompt: Text("Server ID").foregroundColor(.red)
+                )
+                .padding(10)
+                .overlay {
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(.red, lineWidth: 2)
                 }
+                .padding(.horizontal)
+                
+                Button {
+                    Task {
+                        await getUser()
+                    }
                 } label: {
                     Text("Get User ID")
                         .font(.title2)
@@ -60,22 +69,25 @@ struct LoginView: View {
                 .cornerRadius(20)
                 .disabled(isGetUserIDButtonDisabled) // how to disable while some condition is applied
                 .padding()
-            
-            Spacer()
-            
-            TextField("User Id",
-                      text: $userId ,
-                      prompt: Text("User ID").foregroundColor(.blue)
-            )
-            .padding(10)
-            .overlay {
-                RoundedRectangle(cornerRadius: 10)
-                    .stroke(.blue, lineWidth: 2)
-            }
-            .padding(.horizontal)
-            
-            Button {
+                
+                Spacer()
+                
+                /** User Login Text Field **/
+                TextField("User Id",
+                          text: $userId ,
+                          prompt: Text("User ID").foregroundColor(.blue)
+                )
+                .padding(10)
+                .overlay {
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(.blue, lineWidth: 2)
+                }
+                .padding(.horizontal)
+                
+                Button {
                     print("do login action")
+                    us.userid = userId
+                    us.isLoggedIn = true
                 } label: {
                     Text("Sign In")
                         .font(.title2)
@@ -92,22 +104,23 @@ struct LoginView: View {
                 .cornerRadius(20)
                 .disabled(isSignInButtonDisabled) // how to disable while some condition is applied
                 .padding()
-            
-            Spacer()
-        }.alert("Requested User ID", isPresented: $showingConfirmationMessage) {
-            Button("OK") { }
-        } message: {
-            Text(confirmationMessage)
+                
+                Spacer()
+            }.alert("Requested User ID", isPresented: $showingConfirmationMessage) {
+                Button("OK") { }
+            } message: {
+                Text(confirmationMessage)
+            }
         }
     }
     
     func getUser() async {
+        let json: [String: Any] = ["local_server_id": "69696969-4200-4200-4200-696969696969"]
+        let jsonData = try? JSONSerialization.data(withJSONObject: json)
+        
         let url = URL(string: "http://iotsmeller.roshinator.com:8080/user")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
-        
-        let json: [String: String] = ["local_server_id": "69696969-4200-4200-4200-696969696969"]
-        let jsonData = try? JSONSerialization.data(withJSONObject: json)
         
         request.httpBody = jsonData
         let dataTask = URLSession.shared.dataTask(with: request) { data, response, error in
@@ -115,11 +128,12 @@ struct LoginView: View {
                 print(error?.localizedDescription ?? "No data")
                 return
             }
-            let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
-            if let responseJSON = responseJSON as? [String: String] {
+            if let responseJSON = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
                 print(responseJSON)
                 confirmationMessage = "Result: \(responseJSON)"
                 showingConfirmationMessage = true
+            } else {
+               print("failed.")
             }
         }
         dataTask.resume()

@@ -122,6 +122,7 @@ struct AttacksList_Previews: PreviewProvider {
 
 struct AttackPageView: View {
     //@Binding var activeTab: Int
+    @EnvironmentObject var us: UserState
     @State private var confirmationMessageDevice = ""
     @State private var showingConfirmationDevice = false
     @State var attacks: [AttackObject] = []
@@ -161,7 +162,7 @@ struct AttackPageView: View {
         }
     
     func getAttackHistory() {
-        guard let url = URL(string: "http://iotsmeller.roshinator.com:8080/history?user_id=69696969-4200-4200-4200-696969696969&count=10") else { fatalError("Missing URL") }
+        guard let url = URL(string: "http://iotsmeller.roshinator.com:8080/history?user_id=\(us.userid)&count=10") else { fatalError("Missing URL") }
 
         var request = URLRequest(url: url)
         request.httpMethod = "GET"

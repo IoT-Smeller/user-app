@@ -2,7 +2,7 @@
 //  AddDeviceView.swift
 //  userApp
 //
-//  Created by Colette Bradley on 4/7/23.
+//  Created by Jaden Ngo on 4/7/23.
 //
 
 import SwiftUI
@@ -74,7 +74,7 @@ struct UnknownDevicesListView2: View {
             "connection_status": "Offline",
             "severity": "Attack",
             "device_manf": sm.device_manf,
-            "device_name": device.device_name
+            "device_name": device.device_name ?? ""
         ]
         
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
@@ -91,7 +91,6 @@ struct UnknownDevicesListView2: View {
             }
         }
         dataTask.resume()
-        
     }
 }
 
