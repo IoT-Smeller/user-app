@@ -30,8 +30,7 @@ struct AttackView: View {
                 Text("\(attack.attack_type)").font(.title3)
                 Image(systemName: "circle.fill").resizable().frame(width: 10, height: 10).foregroundColor(statusColor)
                 Spacer()
-                let dateStr = convertDate(times: attack.timestamp)
-                Text("\(dateStr)")
+                Text("\(attack.convertedTimestamp ?? "")")
                 Spacer()
             }
             
@@ -52,22 +51,6 @@ struct AttackView: View {
         } else {
             return .gray
         }
-    }
-    
-    func convertDate(times: [Int]) -> String {
-        let df = DateFormatter()
-        df.dateStyle = .medium
-        df.timeStyle = .medium
-        
-        var d = DateComponents()
-        d.year = times[0]
-        d.day = times[1]
-        d.hour = times[2]
-        d.minute = times[3]
-        d.second = times[4]
-        let userCalendar = Calendar(identifier: .gregorian)
-        let temp = userCalendar.date(from: d)
-        return df.string(from: temp ?? Date())
     }
 }
 
@@ -139,11 +122,11 @@ struct AttackPageView: View {
                     Spacer()
                         .frame(height: 50)
                     
-                    Text("Today").bold().font(.title2)
+                    Text("Past 10 Days").bold().font(.title2)
                         .frame(maxWidth: 350, alignment: .leading)
 
                     //AttacksListView(attacks: Attack.todayAttacks())
-                    AttacksListView(attacks: attacks) // TODO: add bool to indicate today
+                    AttacksListView(attacks: attacks.filter {$0.convertedTimestamp ?? "" >= getDate(days: 10) } )
                     
                     Spacer()
                     
@@ -151,7 +134,7 @@ struct AttackPageView: View {
                         .frame(maxWidth: 350, alignment: .leading)
                     
                     //AttacksListView(attacks: Attack.prevAttacks())
-                    AttacksListView(attacks: attacks) // TODO: add bool to indicate today
+                    AttacksListView(attacks: attacks.filter {$0.convertedTimestamp ?? "" < getDate(days: 10) } )
                     
                     
                     Text("\n")
@@ -187,6 +170,17 @@ struct AttackPageView: View {
                }
            }
            dataTask.resume()
+    }
+     
+    func getDate(days: Int) -> String {
+        let df = DateFormatter()
+        df.dateStyle = .medium
+        df.timeStyle = .medium
+        
+        let date = Date()
+        let result = Calendar.current.date(byAdding: .day, value: -days, to: date)
+        print(df.string(from: result!))
+        return df.string(from: result!)
     }
 }
 

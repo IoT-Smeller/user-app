@@ -52,16 +52,27 @@ class AttackObject: ObservableObject, Codable, Identifiable, Hashable {
         attack_type = try container.decode(String.self, forKey: .attack_type)
         severity = try container.decode(String.self, forKey: .severity)
         device_address = try container.decode(String.self, forKey: .device_address)
-        convertedTimestamp = ""
+//        convertedTimestamp = ""
        // device_name = try container.decodeIfPresent(String.self, forKey: .device_name) ?? ""
         for d in deviceInfo.connectedDevices {
             if d.device_id == device_address {
                 device_name = d.device_name
             }
         }
-    //    let dateFormatter = DateFormatter()
-     //   timestampString = dateFormatter.string(from: date!)
-        //timestampString = utcToLocal(dateStr: "\(timestamp[2]):\(timestamp[3]):\(timestamp[4])")
+        
+        let df = DateFormatter()
+        df.dateStyle = .medium
+        df.timeStyle = .medium
+        
+        var d = DateComponents()
+        d.year = timestamp[0]
+        d.day = timestamp[1]
+        d.hour = timestamp[2]
+        d.minute = timestamp[3]
+        d.second = timestamp[4]
+        let userCalendar = Calendar(identifier: .gregorian)
+        let temp = userCalendar.date(from: d)
+        convertedTimestamp = df.string(from: temp ?? Date())
     }
     
     func utcToLocal(dateStr: String) -> String? {
