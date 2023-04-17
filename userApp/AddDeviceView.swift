@@ -79,7 +79,6 @@ struct AddDeviceView: View {
                    DispatchQueue.main.async {
                        do {
                            KnownDevices = try JSONDecoder().decode([KnownDeviceObject].self, from: data)
-                           getSubDevices()
                        } catch let error {
                            print(error)
                        }
@@ -88,19 +87,7 @@ struct AddDeviceView: View {
            }
            dataTask.resume()
     }
-    
-    func getSubDevices() {
-        var temp: [UnkownDeviceObject] = []
-        for knownDevice in KnownDevices {
-            for unknownDevice in unknownDevices {
-                if (knownDevice.device_manf == unknownDevice.device_id.prefix(8)) {
-                    temp.append(unknownDevice)
-                }
-            }
-            knownDevice.devices = temp
-            temp = []
-        }
-    }
+
 }
 
 struct KnownDeviceView: View {
@@ -119,7 +106,7 @@ struct KnownDeviceView: View {
         VStack(alignment: .leading) {
             
             NavigationLink(destination: AddDeviceView2(selectedManufacturer: device)) {
-                Text("\(device.device_name)").font(.title3).foregroundColor(.black)
+                Text("\(device.manf_name)").font(.title3).foregroundColor(.black)
                 Image(systemName: "circle.fill").resizable().frame(width: 10, height: 10).foregroundColor(.gray)
             }
         }

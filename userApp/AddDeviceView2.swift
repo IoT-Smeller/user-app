@@ -8,6 +8,10 @@
 import SwiftUI
 
 struct AddDeviceView2: View {
+    @EnvironmentObject var us: UserState
+//    @State var confirmationMessage = ""
+ //   @State var showingConfirmationMessage = false
+    @State var unknownDevices: [UnkownDeviceObject] = []
     var selectedManufacturer: KnownDeviceObject
     
     var body: some View {
@@ -22,25 +26,57 @@ struct AddDeviceView2: View {
             
             Text("Select Device With Manufacturer: ").bold().font(.title2)
                 .frame(maxWidth: 350, alignment: .leading).offset()
-            Text("\(selectedManufacturer.device_name)").bold().font(.title2).frame(maxWidth: 350, alignment: .center).offset().foregroundColor(CustomColor.lightBlue)
+            Text("\(selectedManufacturer.manf_name)").bold().font(.title2).frame(maxWidth: 350, alignment: .center).offset().foregroundColor(CustomColor.lightBlue)
             Spacer()
             
-            UnknownDevicesListView2(ukd: selectedManufacturer.devices!, sm: selectedManufacturer)
+            UnknownDevicesListView2(ukd: unknownDevices, sm: selectedManufacturer)
             
             Text("\n")
-            
-        }
+        }.onAppear(perform: getUnkownDevices)
+    }
+    
+    func getUnkownDevices() {
+        guard let url = URL(string: "http://iotsmeller.roshinator.com:8080/unknown-device?user_id=\(us.userid)") else { fatalError("Missing URL") }
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+
+        let dataTask = URLSession.shared.dataTask(with: request) { (data, response, error) in
+               if let error = error {
+                   print("Request error: ", error)
+                   return
+               }
+
+               if let data = data {
+                   DispatchQueue.main.async {
+                       do {
+                           unknownDevices = try JSONDecoder().decode([UnkownDeviceObject].self, from: data)
+                       } catch let error {
+                           print(error)
+                       }
+                   }
+               }
+           }
+           dataTask.resume()
     }
 }
 
 struct UnknownDevicesListView2: View {
     let ukd: [UnkownDeviceObject]
     let sm: KnownDeviceObject
+    @State private var confirmationMessage = ""
+    @State private var showingConfirmationMessage = false
     @State private var selection: Set<UnkownDeviceObject> = []
 
     var body: some View {
         scrollForEach
             .background(.white)
+        VStack {
+        }.alert("Added Device", isPresented: $showingConfirmationMessage) {
+            Button("OK") { }
+        } message: {
+            Text(confirmationMessage)
+        }
     }
     
     var list: some View {
@@ -65,11 +101,12 @@ struct UnknownDevicesListView2: View {
     func addDevice(_ device: UnkownDeviceObject) {
         let json: [String: Any] = [
             "device_id": device.device_id,
+            "device_name": device.device_name ?? "",
             "user_id": device.user_id,
             "connection_status": "Offline",
             "severity": "Attack",
-            "device_manf": sm.device_manf,
-            "device_name": sm.device_name
+            "info_manf": sm.manf_name,
+            "info_name": sm.device_name
         ]
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
         
@@ -88,6 +125,8 @@ struct UnknownDevicesListView2: View {
             }
             if let responseJSON = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
                 print(responseJSON)
+                confirmationMessage = "Successully added device \(device.device_name ?? "Unkown Name")! Please return to the home page to view device statuses."
+                showingConfirmationMessage = true
             } else {
                 print("Failed to add device")
             }

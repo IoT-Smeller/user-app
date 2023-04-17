@@ -10,12 +10,13 @@ import Foundation
 class UnkownDeviceObject: ObservableObject, Codable, Identifiable, Hashable {
     
     enum CodingKeys: CodingKey {
-        case device_id, user_id, device_name, timestamp
+        case device_id, user_id, device_name, device_vendor, timestamp
     }
     
     @Published var device_id = ""
     @Published var user_id = ""
     @Published var device_name: String?
+    @Published var device_vendor = ""
     @Published var timestamp: [Int] = []
     
     init() { }
@@ -34,6 +35,7 @@ class UnkownDeviceObject: ObservableObject, Codable, Identifiable, Hashable {
         try container.encode(device_id, forKey: .device_id)
         try container.encode(user_id, forKey: .user_id)
         try container.encode(device_name, forKey: .device_name)
+        try container.encode(device_vendor, forKey: .device_vendor)
         try container.encode(timestamp, forKey: .timestamp)
     }
     
@@ -44,9 +46,9 @@ class UnkownDeviceObject: ObservableObject, Codable, Identifiable, Hashable {
         user_id = try container.decode(String.self, forKey: .user_id)
         device_name = try container.decodeIfPresent(String.self, forKey: .device_name) ?? "Unkown Name"
         if (device_name == "") {
-            device_name = "Unknown Name"
+            device_name = "Unkown Name"
         }
+        device_vendor = try container.decode(String.self, forKey: .device_vendor)
         timestamp = try container.decode([Int].self, forKey: .timestamp)
-        
     }
 }
