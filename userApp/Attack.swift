@@ -62,8 +62,7 @@ class AttackObject: ObservableObject, Codable, Identifiable, Hashable {
         }
         
         let df = DateFormatter()
-        df.dateStyle = .medium
-        df.timeStyle = .medium
+        df.dateFormat = "yyyy-MM-dd HH:mm"
         
         var d = DateComponents()
         d.year = timestamp[0]
@@ -73,17 +72,18 @@ class AttackObject: ObservableObject, Codable, Identifiable, Hashable {
         d.second = timestamp[4]
         let userCalendar = Calendar(identifier: .gregorian)
         timestampDate = userCalendar.date(from: d)
-        timestampString = df.string(from: timestampDate ?? Date())
+        timestampString = utcToLocal(dateStr: df.string(from: timestampDate ?? Date()))
     }
     
     func utcToLocal(dateStr: String) -> String? {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "H:mm:ss"
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
         dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
         
         if let date = dateFormatter.date(from: dateStr) {
             dateFormatter.timeZone = TimeZone.current
-            dateFormatter.dateFormat = "h:mm a"
+            dateFormatter.dateStyle = .medium
+            dateFormatter.timeStyle = .medium
         
             return dateFormatter.string(from: date)
         }

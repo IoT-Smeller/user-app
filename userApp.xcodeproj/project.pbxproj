@@ -24,6 +24,7 @@
 		FB8122AA29DDCE2E00419DF0 /* UknownDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB8122A929DDCE2E00419DF0 /* UknownDevice.swift */; };
 		FB8291EE29C0E1BF00EFB3C2 /* UserState.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB8291ED29C0E1BF00EFB3C2 /* UserState.swift */; };
 		FB8291F029C0E4C500EFB3C2 /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB8291EF29C0E4C500EFB3C2 /* Device.swift */; };
+		FB8899ED29F0580C00F201DA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB8899EC29F0580C00F201DA /* AppDelegate.swift */; };
 		FBC52D3C29E45CED00828998 /* KnownDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC52D3B29E45CED00828998 /* KnownDevice.swift */; };
 		FBC52D3E29E45EB100828998 /* AddDeviceView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC52D3D29E45EB100828998 /* AddDeviceView2.swift */; };
 /* End PBXBuildFile section */
@@ -48,7 +49,7 @@
 /* Begin PBXFileReference section */
 		FB0D64C229BABE3600FC32DD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		FB1080D629E08D2E0070314F /* AddDeviceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDeviceView.swift; sourceTree = "<group>"; };
-		FB51F239298C31EE00065C9C /* userApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = userApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FB51F239298C31EE00065C9C /* WARN.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WARN.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB51F23C298C31EE00065C9C /* userAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = userAppApp.swift; sourceTree = "<group>"; };
 		FB51F23E298C31EE00065C9C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		FB51F240298C31F000065C9C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -67,6 +68,8 @@
 		FB8122A929DDCE2E00419DF0 /* UknownDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UknownDevice.swift; sourceTree = "<group>"; };
 		FB8291ED29C0E1BF00EFB3C2 /* UserState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserState.swift; sourceTree = "<group>"; };
 		FB8291EF29C0E4C500EFB3C2 /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
+		FB8899E929F0546300F201DA /* userApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = userApp.entitlements; sourceTree = "<group>"; };
+		FB8899EC29F0580C00F201DA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FBC52D3B29E45CED00828998 /* KnownDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KnownDevice.swift; sourceTree = "<group>"; };
 		FBC52D3D29E45EB100828998 /* AddDeviceView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDeviceView2.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -109,7 +112,7 @@
 		FB51F23A298C31EE00065C9C /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				FB51F239298C31EE00065C9C /* userApp.app */,
+				FB51F239298C31EE00065C9C /* WARN.app */,
 				FB51F249298C31F100065C9C /* userAppTests.xctest */,
 				FB51F253298C31F100065C9C /* userAppUITests.xctest */,
 			);
@@ -119,8 +122,10 @@
 		FB51F23B298C31EE00065C9C /* userApp */ = {
 			isa = PBXGroup;
 			children = (
+				FB8899E929F0546300F201DA /* userApp.entitlements */,
 				FB0D64C229BABE3600FC32DD /* Info.plist */,
 				FB51F23C298C31EE00065C9C /* userAppApp.swift */,
+				FB8899EC29F0580C00F201DA /* AppDelegate.swift */,
 				FB51F23E298C31EE00065C9C /* ContentView.swift */,
 				FB76F90429BAA26C00A08942 /* Attack.swift */,
 				FB51F268298C326900065C9C /* DeviceView.swift */,
@@ -168,9 +173,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		FB51F238298C31EE00065C9C /* userApp */ = {
+		FB51F238298C31EE00065C9C /* WARN */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = FB51F25D298C31F100065C9C /* Build configuration list for PBXNativeTarget "userApp" */;
+			buildConfigurationList = FB51F25D298C31F100065C9C /* Build configuration list for PBXNativeTarget "WARN" */;
 			buildPhases = (
 				FB51F235298C31EE00065C9C /* Sources */,
 				FB51F236298C31EE00065C9C /* Frameworks */,
@@ -180,9 +185,9 @@
 			);
 			dependencies = (
 			);
-			name = userApp;
+			name = WARN;
 			productName = userApp;
-			productReference = FB51F239298C31EE00065C9C /* userApp.app */;
+			productReference = FB51F239298C31EE00065C9C /* WARN.app */;
 			productType = "com.apple.product-type.application";
 		};
 		FB51F248298C31F100065C9C /* userAppTests */ = {
@@ -257,7 +262,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				FB51F238298C31EE00065C9C /* userApp */,
+				FB51F238298C31EE00065C9C /* WARN */,
 				FB51F248298C31F100065C9C /* userAppTests */,
 				FB51F252298C31F100065C9C /* userAppUITests */,
 			);
@@ -298,6 +303,7 @@
 				FBC52D3C29E45CED00828998 /* KnownDevice.swift in Sources */,
 				FB8122AA29DDCE2E00419DF0 /* UknownDevice.swift in Sources */,
 				FB8291EE29C0E1BF00EFB3C2 /* UserState.swift in Sources */,
+				FB8899ED29F0580C00F201DA /* AppDelegate.swift in Sources */,
 				FB51F267298C324400065C9C /* AttackView.swift in Sources */,
 				FB76F90729BAAC5500A08942 /* LoginView.swift in Sources */,
 				FB51F23F298C31EE00065C9C /* ContentView.swift in Sources */,
@@ -334,12 +340,12 @@
 /* Begin PBXTargetDependency section */
 		FB51F24B298C31F100065C9C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = FB51F238298C31EE00065C9C /* userApp */;
+			target = FB51F238298C31EE00065C9C /* WARN */;
 			targetProxy = FB51F24A298C31F100065C9C /* PBXContainerItemProxy */;
 		};
 		FB51F255298C31F100065C9C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = FB51F238298C31EE00065C9C /* userApp */;
+			target = FB51F238298C31EE00065C9C /* WARN */;
 			targetProxy = FB51F254298C31F100065C9C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -464,6 +470,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = userApp/userApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"userApp/Preview Content\"";
@@ -493,6 +500,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = userApp/userApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"userApp/Preview Content\"";
@@ -601,7 +609,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		FB51F25D298C31F100065C9C /* Build configuration list for PBXNativeTarget "userApp" */ = {
+		FB51F25D298C31F100065C9C /* Build configuration list for PBXNativeTarget "WARN" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				FB51F25E298C31F100065C9C /* Debug */,

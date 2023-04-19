@@ -35,9 +35,16 @@ struct AttackView: View {
             }
             
             if isExpanded {
-                HStack {
-                    Text("Affected Device: ").font(.subheadline)
-                    Text("\(attack.device_name ?? "Unkown Name")").font(.subheadline)
+                VStack {
+                    HStack {
+                        Text("Affected Device: ").font(.subheadline)
+                        Text("\(attack.device_name ?? "Unkown Name")").font(.subheadline)
+                    }
+                    if (attack.severity == "Attack") {
+                        Text("Identified as an attack!").font(.subheadline)
+                    } else if (attack.severity == "Warning") {
+                        Text("Identified as an attack!").font(.subheadline)
+                    }
                 }
             }
         }

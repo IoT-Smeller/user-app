@@ -268,7 +268,7 @@ struct DevicePageView: View {
                }
 
                guard let response = response as? HTTPURLResponse else { return }
-            print(response.statusCode)
+ //           print(response.statusCode)
 
                if let data = data {
                    DispatchQueue.main.async {

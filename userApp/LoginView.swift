@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import UserNotifications
 
 //local_server_id:69696969-4200-4200-4200-696969696969
 //userid:69696969-4200-4200-4200-696969696969
@@ -86,7 +87,7 @@ struct LoginView: View {
                 .padding(.horizontal)
                 
                 Button {
-                    print("do login action")
+                   // print("do login action")
                     us.userid = userId
                     us.isLoggedIn = true
                 } label: {
@@ -146,7 +147,6 @@ struct LoginView: View {
         dataTask.resume()
     }
 }
-    
 
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {

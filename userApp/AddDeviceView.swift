@@ -2,7 +2,7 @@
 //  AddDeviceView.swift
 //  userApp
 //
-//  Created by Colette Bradley on 4/7/23.
+//  Created by Jaden Ngo on 4/7/23.
 //
 
 import SwiftUI

@@ -6,9 +6,11 @@
 //
 
 import SwiftUI
+import UserNotifications
 
 @main
 struct userAppApp: App {
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     @StateObject var us = UserState()
     
     var body: some Scene {

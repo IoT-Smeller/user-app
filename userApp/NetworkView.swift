@@ -14,22 +14,24 @@ import SwiftUI
  */
 
 struct NetworkView: View {
+    @EnvironmentObject var us: UserState
+    @State var knownDevices: [DeviceObject] = []
+    @State var statusColor: Color = Color.green
     
-    var body: some View { 
-        let statusColor = checkNetworkStatus()
+    var body: some View {
         let wifiName = "Phrog House"
     
         NavigationView {
             ZStack {
                VStack(spacing: 0) {
-                   CustomColor.lightBlue
+                   statusColor
                    CustomColor.lightGray
                }
                .edgesIgnoringSafeArea(.all)
                
                HStack {
                    Text("Wi-Fi Network").font(.title2).bold().foregroundColor(.white).frame(maxWidth: 340, alignment: .leading).offset(y: -330)
-                   Image(systemName: "circle.fill").resizable().foregroundColor(statusColor).frame(width: 25, height: 25).offset(y: -330)
+                   Image(systemName: "circle.fill").resizable().foregroundColor(Color.green).frame(width: 25, height: 25).offset(y: -330)
                }
                
                Image(systemName: "wifi.circle").resizable().frame(width: 100, height: 100).foregroundColor(Color.white).offset(y: -175)
@@ -44,13 +46,55 @@ struct NetworkView: View {
                 .font(.headline)
                 .cornerRadius(10)
                 .position(x: 200, y: 600)
+                
+                /* TODO: Remove Device Functionality */
            }
-       }
+       }.onAppear(perform: getConnectedDevices)
+            .onAppear(perform: checkNetworkStatus)
     }
     
-    func checkNetworkStatus() -> Color {
-        // TODO: check network connectivity and return corresponding icon color
-        return Color.green
+    func checkNetworkStatus() {
+        statusColor = Color.green
+        for d in knownDevices {
+            if (d.severity == "Attack") {
+                statusColor = Color.red
+                return
+            } else if (d.severity == "Warning") {
+                statusColor = Color.yellow
+            }
+        }
+    }
+    
+    func getConnectedDevices() {
+        guard let url = URL(string: "http://iotsmeller.roshinator.com:8080/device?user_id=\(us.userid)") else { fatalError("Missing URL") }
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+
+        let dataTask = URLSession.shared.dataTask(with: request) { (data, response, error) in
+               if let error = error {
+                   print("Request error: ", error)
+                   return
+               }
+
+               guard let response = response as? HTTPURLResponse else { return }
+ //           print(response.statusCode)
+
+               if let data = data {
+                   DispatchQueue.main.async {
+                       do {
+                           knownDevices = try JSONDecoder().decode([DeviceObject].self, from: data)
+                      //     deviceInfo.knownDevices = knownDevices
+                           deviceInfo.connectedDevices = knownDevices
+                       } catch let error {
+                          // confirmationMessageDevice = "Error Decoding: \(error)"
+                          // showingConfirmationDevice = true
+                           print("Error Decoding: \(error)")
+                       }
+                   }
+               }
+           }
+           dataTask.resume()
     }
 }
 
