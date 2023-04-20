@@ -226,7 +226,7 @@ struct DevicePageView: View {
                         .frame(height: 25)
                     
                     Image(systemName: "shield.lefthalf.filled").resizable().frame(width: 50, height: 50).foregroundColor(CustomColor.lightBlue)
-                    Text("WARN")
+                    Text("WARN").bold()
                     Spacer()
                         .frame(height: 50)
                     

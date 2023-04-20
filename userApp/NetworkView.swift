@@ -45,9 +45,19 @@ struct NetworkView: View {
                 .foregroundColor(.white)
                 .font(.headline)
                 .cornerRadius(10)
-                .position(x: 200, y: 600)
+                .position(x: 200, y: 450)
                 
-                /* TODO: Remove Device Functionality */
+                NavigationLink(destination: RemoveDeviceView()) {
+                    Text("Remove Device")
+                }
+                .padding()
+                .background(.red)
+                .foregroundColor(.white)
+                .font(.headline)
+                .cornerRadius(10)
+                .position(x: 200, y: 550)
+                
+                Spacer()
            }
        }.onAppear(perform: getConnectedDevices)
             .onAppear(perform: checkNetworkStatus)

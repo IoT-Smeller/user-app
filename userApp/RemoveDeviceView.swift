@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct AddDeviceView: View {
+struct RemoveDeviceView: View {
     @EnvironmentObject var us: UserState
     @State var unknownDevices: [UnkownDeviceObject] = []
     @State var KnownDevices: [KnownDeviceObject] = []
@@ -22,8 +22,8 @@ struct AddDeviceView: View {
             Spacer()
                 .frame(height: 50)
             
-            Text("Add Device").bold().font(.title2)
-                .frame(maxWidth: 350, alignment: .center).offset().foregroundColor(.green)
+            Text("Remove Device").bold().font(.title2)
+                .frame(maxWidth: 350, alignment: .center).offset().foregroundColor(.red)
             Spacer()
                 .frame(height: 50)
             
@@ -31,11 +31,11 @@ struct AddDeviceView: View {
                 .frame(maxWidth: 350, alignment: .leading).offset()
             Spacer()
             
-            NewDevicesListView(ukd: unknownDevices, ald: KnownDevices)
+            NewDevicesListView2(ukd: unknownDevices, ald: KnownDevices)
             
             Text("\n")
-                    
-       }.onAppear(perform: getUnkownDevices)
+            
+        }.onAppear(perform: getUnkownDevices)
             .onAppear(perform: getAllDevices)
     }
     
@@ -95,7 +95,7 @@ struct AddDeviceView: View {
 
 }
 
-struct KnownDeviceView: View {
+struct KnownDeviceView2: View {
     let device: KnownDeviceObject
     let isExpanded: Bool
     
@@ -110,14 +110,14 @@ struct KnownDeviceView: View {
     private var content: some View {
         VStack(alignment: .leading) {
             
-            NavigationLink(destination: AddDeviceView2(selectedManufacturer: device)) {
+            NavigationLink(destination: RemoveDeviceView2(selectedManufacturer: device)) {
                 Text("\(device.manf_name)").font(.title3).foregroundColor(.black)
             }
         }
     }
 }
 
-struct NewDevicesListView: View {
+struct NewDevicesListView2: View {
     let ukd: [UnkownDeviceObject]
     let ald: [KnownDeviceObject]
     @State private var selection: Set<KnownDeviceObject> = []
@@ -129,7 +129,7 @@ struct NewDevicesListView: View {
     
     var list: some View {
         List(ald) { device in
-            KnownDeviceView(device: device, isExpanded: self.selection.contains(device))
+            KnownDeviceView2(device: device, isExpanded: self.selection.contains(device))
                 .animation(.easeInOut(duration: 2), value: 1)
         }
     }
@@ -137,7 +137,7 @@ struct NewDevicesListView: View {
     var scrollForEach: some View {
         ScrollView {
             ForEach(ald) { device in
-                KnownDeviceView(device: device, isExpanded: self.selection.contains(device))
+                KnownDeviceView2(device: device, isExpanded: self.selection.contains(device))
                     .modifier(ListRowModifier())
                     .animation(.easeInOut(duration: 2), value: 1)
             }
@@ -158,8 +158,8 @@ struct NewDevicesListView: View {
     }
 }
 
-struct AddDeviceView_Previews: PreviewProvider {
+struct RemoveDeviceView_Previews: PreviewProvider {
     static var previews: some View {
-        AddDeviceView()
+        RemoveDeviceView()
     }
 }

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FB0179F129F1060800EDFA57 /* RemoveDeviceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0179F029F1060800EDFA57 /* RemoveDeviceView.swift */; };
+		FB0179F329F1079400EDFA57 /* RemoveDeviceView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0179F229F1079400EDFA57 /* RemoveDeviceView2.swift */; };
 		FB1080D729E08D2F0070314F /* AddDeviceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB1080D629E08D2E0070314F /* AddDeviceView.swift */; };
 		FB51F23D298C31EE00065C9C /* userAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB51F23C298C31EE00065C9C /* userAppApp.swift */; };
 		FB51F23F298C31EE00065C9C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB51F23E298C31EE00065C9C /* ContentView.swift */; };
@@ -47,6 +49,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		FB0179F029F1060800EDFA57 /* RemoveDeviceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveDeviceView.swift; sourceTree = "<group>"; };
+		FB0179F229F1079400EDFA57 /* RemoveDeviceView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveDeviceView2.swift; sourceTree = "<group>"; };
 		FB0D64C229BABE3600FC32DD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		FB1080D629E08D2E0070314F /* AddDeviceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDeviceView.swift; sourceTree = "<group>"; };
 		FB51F239298C31EE00065C9C /* WARN.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WARN.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -133,6 +137,8 @@
 				FBC52D3B29E45CED00828998 /* KnownDevice.swift */,
 				FB8122A929DDCE2E00419DF0 /* UknownDevice.swift */,
 				FB51F26A298C329400065C9C /* NetworkView.swift */,
+				FB0179F029F1060800EDFA57 /* RemoveDeviceView.swift */,
+				FB0179F229F1079400EDFA57 /* RemoveDeviceView2.swift */,
 				FB1080D629E08D2E0070314F /* AddDeviceView.swift */,
 				FBC52D3D29E45EB100828998 /* AddDeviceView2.swift */,
 				FB51F266298C324400065C9C /* AttackView.swift */,
@@ -307,9 +313,11 @@
 				FB51F267298C324400065C9C /* AttackView.swift in Sources */,
 				FB76F90729BAAC5500A08942 /* LoginView.swift in Sources */,
 				FB51F23F298C31EE00065C9C /* ContentView.swift in Sources */,
+				FB0179F329F1079400EDFA57 /* RemoveDeviceView2.swift in Sources */,
 				FB51F269298C326900065C9C /* DeviceView.swift in Sources */,
 				FB1080D729E08D2F0070314F /* AddDeviceView.swift in Sources */,
 				FB76F90929BAAD0000A08942 /* User.swift in Sources */,
+				FB0179F129F1060800EDFA57 /* RemoveDeviceView.swift in Sources */,
 				FB51F26B298C329400065C9C /* NetworkView.swift in Sources */,
 				FB51F23D298C31EE00065C9C /* userAppApp.swift in Sources */,
 				FBC52D3E29E45EB100828998 /* AddDeviceView2.swift in Sources */,

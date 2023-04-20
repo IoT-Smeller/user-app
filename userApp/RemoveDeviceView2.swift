@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct AddDeviceView2: View {
+struct RemoveDeviceView2: View {
     @EnvironmentObject var us: UserState
 //    @State var confirmationMessage = ""
  //   @State var showingConfirmationMessage = false
@@ -20,16 +20,16 @@ struct AddDeviceView2: View {
                 .frame(height: 25)
             
             Image(systemName: "shield.lefthalf.filled").resizable().frame(width: 50, height: 50).foregroundColor(CustomColor.lightBlue)
-            Text("WARN")
+            Text("WARN").bold()
             Spacer()
                 .frame(height: 50)
             
-            Text("Add Device With Manufacturer: ").bold().font(.title2)
-                .frame(maxWidth: 350, alignment: .center).offset()
+            Text("Remove Device With Manufacturer: ").bold().font(.title2)
+                .frame(maxWidth: 400, alignment: .center).offset()
             Text("\(selectedManufacturer.manf_name)").bold().font(.title2).frame(maxWidth: 350, alignment: .center).offset().foregroundColor(CustomColor.lightBlue)
             Spacer()
             
-            UnknownDevicesListView2(ukd: unknownDevices, sm: selectedManufacturer)
+            RemoveDeviceListView(ukd: unknownDevices, sm: selectedManufacturer)
             
             Text("\n")
         }.onAppear(perform: getUnkownDevices)
@@ -61,7 +61,7 @@ struct AddDeviceView2: View {
     }
 }
 
-struct UnknownDevicesListView2: View {
+struct RemoveDeviceListView: View {
     let ukd: [UnkownDeviceObject]
     let sm: KnownDeviceObject
     @State private var confirmationMessage = ""
@@ -72,7 +72,7 @@ struct UnknownDevicesListView2: View {
         scrollForEach
             .background(.white)
         VStack {
-        }.alert("Added Device", isPresented: $showingConfirmationMessage) {
+        }.alert("Removed Device", isPresented: $showingConfirmationMessage) {
             Button("OK") { }
         } message: {
             Text(confirmationMessage)
@@ -82,7 +82,7 @@ struct UnknownDevicesListView2: View {
     var list: some View {
         List(ukd) { device in
             UnkownDeviceView(device: device, isExpanded: self.selection.contains(device))
-                .onTapGesture { self.addDevice(device) }
+                .onTapGesture { self.removeDevice(device) }
                 .animation(.easeInOut(duration: 2), value: 1)
         }
     }
@@ -92,13 +92,13 @@ struct UnknownDevicesListView2: View {
             ForEach(ukd) { device in
                 UnkownDeviceView(device: device, isExpanded: self.selection.contains(device))
                     .modifier(ListRowModifier())
-                    .onTapGesture { self.addDevice(device) }
+                    .onTapGesture { self.removeDevice(device) }
                     .animation(.easeInOut(duration: 2), value: 1)
             }
         }
     }
     
-    func addDevice(_ device: UnkownDeviceObject) {
+    func removeDevice(_ device: UnkownDeviceObject) {
         let json: [String: Any] = [
             "device_id": device.device_id,
             "device_name": device.device_name ?? "",
@@ -112,7 +112,7 @@ struct UnknownDevicesListView2: View {
         
         guard let url = URL(string: "http://iotsmeller.roshinator.com:8080/device") else { fatalError("Missing URL") }
         var request = URLRequest(url: url)
-        request.httpMethod = "POST"
+        request.httpMethod = "DELETE"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("application/json", forHTTPHeaderField: "Accept")
         request.httpBody = jsonData
@@ -125,7 +125,7 @@ struct UnknownDevicesListView2: View {
             }
             if let responseJSON = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
                 print(responseJSON)
-                confirmationMessage = "Successully added device \(device.device_name ?? "Unkown Name")! Please return to the home page to view device statuses."
+                confirmationMessage = "Successully removed device \(device.device_name ?? "Unkown Name")! Please return to the home page to view device statuses."
                 showingConfirmationMessage = true
             } else {
                 print("Failed to add device")
@@ -135,10 +135,10 @@ struct UnknownDevicesListView2: View {
     }
 }
 
-struct AddDeviceView2_Previews: PreviewProvider {
+struct RemoveDeviceView2_Previews: PreviewProvider {
     @State static var d = deviceInfo.knownDevices[0]
     
     static var previews: some View {
-        AddDeviceView2(selectedManufacturer: d)
+        RemoveDeviceView2(selectedManufacturer: d)
     }
 }

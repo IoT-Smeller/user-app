@@ -35,7 +35,7 @@ struct AttackView: View {
             }
             
             if isExpanded {
-                VStack {
+                VStack(alignment: .leading) {
                     HStack {
                         Text("Affected Device: ").font(.subheadline)
                         Text("\(attack.device_name ?? "Unkown Name")").font(.subheadline)
@@ -43,7 +43,7 @@ struct AttackView: View {
                     if (attack.severity == "Attack") {
                         Text("Identified as an attack!").font(.subheadline)
                     } else if (attack.severity == "Warning") {
-                        Text("Identified as an attack!").font(.subheadline)
+                        Text("Identified as an warning. This could indicate an attempted attack!").font(.subheadline)
                     }
                 }
             }
@@ -125,7 +125,7 @@ struct AttackPageView: View {
                         .frame(height: 25)
                     
                     Image(systemName: "shield.lefthalf.filled").resizable().frame(width: 50, height: 50).foregroundColor(CustomColor.lightBlue)
-                    Text("WARN")
+                    Text("WARN").bold()
                     Spacer()
                         .frame(height: 50)
                     
