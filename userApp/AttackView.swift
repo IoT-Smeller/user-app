@@ -111,7 +111,6 @@ struct AttacksList_Previews: PreviewProvider {
 }
 
 struct AttackPageView: View {
-    //@Binding var activeTab: Int
     @EnvironmentObject var us: UserState
     @State private var confirmationMessageDevice = ""
     @State private var showingConfirmationDevice = false
@@ -163,7 +162,7 @@ struct AttackPageView: View {
                    return
                }
 
-            guard response is HTTPURLResponse else { return }
+            guard let response = response as? HTTPURLResponse else { return }
 
                if let data = data {
                    DispatchQueue.main.async {

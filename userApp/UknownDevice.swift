@@ -44,11 +44,11 @@ class UnkownDeviceObject: ObservableObject, Codable, Identifiable, Hashable {
         
         device_id = try container.decode(String.self, forKey: .device_id)
         user_id = try container.decode(String.self, forKey: .user_id)
-        device_name = try container.decodeIfPresent(String.self, forKey: .device_name) ?? "Unkown Name"
-        if (device_name == "") {
-            device_name = "Unkown Name"
-        }
         device_vendor = try container.decode(String.self, forKey: .device_vendor)
+        device_name = try container.decodeIfPresent(String.self, forKey: .device_name) ?? device_vendor
+        if (device_name == "") {
+            device_name = device_vendor
+        }
         timestamp = try container.decode([Int].self, forKey: .timestamp)
     }
 }

@@ -30,8 +30,10 @@ struct NetworkView: View {
                .edgesIgnoringSafeArea(.all)
                
                HStack {
+                   Spacer().frame(width: 15)
                    Text("Wi-Fi Network").font(.title2).bold().foregroundColor(.white).frame(maxWidth: 340, alignment: .leading).offset(y: -330)
-                   Image(systemName: "circle.fill").resizable().foregroundColor(Color.green).frame(width: 25, height: 25).offset(y: -330)
+                   Image(systemName: "circle.fill").resizable().foregroundColor(CustomColor.lightGreen).frame(width: 25, height: 25).offset(y: -330)
+                   Spacer().frame(width: 15)
                }
                
                Image(systemName: "wifi.circle").resizable().frame(width: 100, height: 100).foregroundColor(Color.white).offset(y: -175)

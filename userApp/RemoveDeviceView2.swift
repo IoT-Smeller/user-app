@@ -9,9 +9,7 @@ import SwiftUI
 
 struct RemoveDeviceView2: View {
     @EnvironmentObject var us: UserState
-//    @State var confirmationMessage = ""
- //   @State var showingConfirmationMessage = false
-    @State var unknownDevices: [UnkownDeviceObject] = []
+    @State var connectedDevices: [DeviceObject] = []
     var selectedManufacturer: KnownDeviceObject
     
     var body: some View {
@@ -29,44 +27,49 @@ struct RemoveDeviceView2: View {
             Text("\(selectedManufacturer.manf_name)").bold().font(.title2).frame(maxWidth: 350, alignment: .center).offset().foregroundColor(CustomColor.lightBlue)
             Spacer()
             
-            RemoveDeviceListView(ukd: unknownDevices, sm: selectedManufacturer)
+            DevicesListView2(devices: connectedDevices, sm: selectedManufacturer)
             
             Text("\n")
-        }.onAppear(perform: getUnkownDevices)
+        }.onAppear(perform: getConnectedDevices)
     }
     
-    func getUnkownDevices() {
-        guard let url = URL(string: "http://iotsmeller.roshinator.com:8080/unknown-device?user_id=\(us.userid)") else { fatalError("Missing URL") }
+    func getConnectedDevices() {
+        guard let url = URL(string: "http://iotsmeller.roshinator.com:8080/device?user_id=\(us.userid)") else { fatalError("Missing URL") }
 
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
 
         let dataTask = URLSession.shared.dataTask(with: request) { (data, response, error) in
-               if let error = error {
-                   print("Request error: ", error)
-                   return
-               }
+           if let error = error {
+               print("Request error: ", error)
+               return
+           }
 
-               if let data = data {
-                   DispatchQueue.main.async {
-                       do {
-                           unknownDevices = try JSONDecoder().decode([UnkownDeviceObject].self, from: data)
-                       } catch let error {
-                           print(error)
-                       }
+           guard let response = response as? HTTPURLResponse else { return }
+
+           if let data = data {
+               DispatchQueue.main.async {
+                   do {
+                       connectedDevices = try JSONDecoder().decode([DeviceObject].self, from: data)
+                   } catch let error {
+                       //confirmationMessageDevice = "Error Decoding: \(error)"
+                       //showingConfirmationDevice = true
+                       print(error)
                    }
                }
            }
-           dataTask.resume()
+       }
+       dataTask.resume()
     }
 }
 
-struct RemoveDeviceListView: View {
-    let ukd: [UnkownDeviceObject]
+
+struct DevicesListView2: View {
+    let devices: [DeviceObject]
     let sm: KnownDeviceObject
     @State private var confirmationMessage = ""
     @State private var showingConfirmationMessage = false
-    @State private var selection: Set<UnkownDeviceObject> = []
+    @State private var selection: Set<DeviceObject> = []
 
     var body: some View {
         scrollForEach
@@ -80,17 +83,17 @@ struct RemoveDeviceListView: View {
     }
     
     var list: some View {
-        List(ukd) { device in
-            UnkownDeviceView(device: device, isExpanded: self.selection.contains(device))
-                .onTapGesture { self.removeDevice(device) }
+        List(devices) { device in
+            DeviceView(device: device, isExpanded: self.selection.contains(device))
+                .onTapGesture { self.selectDeselect(device) }
                 .animation(.easeInOut(duration: 2), value: 1)
         }
     }
     
     var scrollForEach: some View {
         ScrollView {
-            ForEach(ukd) { device in
-                UnkownDeviceView(device: device, isExpanded: self.selection.contains(device))
+            ForEach(devices) { device in
+                DeviceView(device: device, isExpanded: self.selection.contains(device))
                     .modifier(ListRowModifier())
                     .onTapGesture { self.removeDevice(device) }
                     .animation(.easeInOut(duration: 2), value: 1)
@@ -98,10 +101,23 @@ struct RemoveDeviceListView: View {
         }
     }
     
-    func removeDevice(_ device: UnkownDeviceObject) {
+    private func selectDeselect(_ device: DeviceObject) {
+        if selection.contains(device) {
+            selection.remove(device)
+        } else {
+            closeOthers()
+            selection.insert(device)
+        }
+    }
+    
+    private func closeOthers() {
+        selection.removeAll()
+    }
+    
+    func removeDevice(_ device: DeviceObject) {
         let json: [String: Any] = [
             "device_id": device.device_id,
-            "device_name": device.device_name ?? "",
+            "device_name": device.device_name,
             "user_id": device.user_id,
             "connection_status": "Offline",
             "severity": "Attack",
@@ -125,7 +141,7 @@ struct RemoveDeviceListView: View {
             }
             if let responseJSON = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
                 print(responseJSON)
-                confirmationMessage = "Successully removed device \(device.device_name ?? "Unkown Name")! Please return to the home page to view device statuses."
+                confirmationMessage = "Successully removed device \(device.device_name)! Please return to the home page to view device statuses."
                 showingConfirmationMessage = true
             } else {
                 print("Failed to add device")
