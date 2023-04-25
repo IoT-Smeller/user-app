@@ -27,6 +27,7 @@
 		FB8291EE29C0E1BF00EFB3C2 /* UserState.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB8291ED29C0E1BF00EFB3C2 /* UserState.swift */; };
 		FB8291F029C0E4C500EFB3C2 /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB8291EF29C0E4C500EFB3C2 /* Device.swift */; };
 		FB8899ED29F0580C00F201DA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB8899EC29F0580C00F201DA /* AppDelegate.swift */; };
+		FBBF7E4329F832CA00C854DF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBBF7E4229F832CA00C854DF /* ViewController.swift */; };
 		FBC52D3C29E45CED00828998 /* KnownDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC52D3B29E45CED00828998 /* KnownDevice.swift */; };
 		FBC52D3E29E45EB100828998 /* AddDeviceView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC52D3D29E45EB100828998 /* AddDeviceView2.swift */; };
 /* End PBXBuildFile section */
@@ -74,6 +75,7 @@
 		FB8291EF29C0E4C500EFB3C2 /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
 		FB8899E929F0546300F201DA /* userApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = userApp.entitlements; sourceTree = "<group>"; };
 		FB8899EC29F0580C00F201DA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		FBBF7E4229F832CA00C854DF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		FBC52D3B29E45CED00828998 /* KnownDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KnownDevice.swift; sourceTree = "<group>"; };
 		FBC52D3D29E45EB100828998 /* AddDeviceView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDeviceView2.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -129,6 +131,7 @@
 				FB8899E929F0546300F201DA /* userApp.entitlements */,
 				FB0D64C229BABE3600FC32DD /* Info.plist */,
 				FB51F23C298C31EE00065C9C /* userAppApp.swift */,
+				FBBF7E4229F832CA00C854DF /* ViewController.swift */,
 				FB8899EC29F0580C00F201DA /* AppDelegate.swift */,
 				FB51F23E298C31EE00065C9C /* ContentView.swift */,
 				FB51F266298C324400065C9C /* AttackView.swift */,
@@ -318,6 +321,7 @@
 				FB1080D729E08D2F0070314F /* AddDeviceView.swift in Sources */,
 				FB76F90929BAAD0000A08942 /* User.swift in Sources */,
 				FB0179F129F1060800EDFA57 /* RemoveDeviceView.swift in Sources */,
+				FBBF7E4329F832CA00C854DF /* ViewController.swift in Sources */,
 				FB51F26B298C329400065C9C /* NetworkView.swift in Sources */,
 				FB51F23D298C31EE00065C9C /* userAppApp.swift in Sources */,
 				FBC52D3E29E45EB100828998 /* AddDeviceView2.swift in Sources */,

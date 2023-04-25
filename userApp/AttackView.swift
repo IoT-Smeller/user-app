@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Foundation
+import UserNotifications
 
 struct AttackView: View {
     let attack: AttackObject
@@ -128,11 +129,11 @@ struct AttackPageView: View {
                     Spacer()
                         .frame(height: 50)
                     
-                    Text("Past 10 Days").bold().font(.title2)
+                    Text("Past 1 Days").bold().font(.title2)
                         .frame(maxWidth: 350, alignment: .leading)
 
                     //AttacksListView(attacks: Attack.todayAttacks())
-                    AttacksListView(attacks: attacks.filter {$0.timestampDate! >= getDate(days: 10) } )
+                    AttacksListView(attacks: attacks.filter {$0.timestampDate! >= getDate(days: 1) } )
                     
                     Spacer()
                     
@@ -140,7 +141,7 @@ struct AttackPageView: View {
                         .frame(maxWidth: 350, alignment: .leading)
                     
                     //AttacksListView(attacks: Attack.prevAttacks())
-                    AttacksListView(attacks: attacks.filter {$0.timestampDate! < getDate(days: 10) } )
+                    AttacksListView(attacks: attacks.filter {$0.timestampDate! < getDate(days: 1) } )
                     
                     
                     Text("\n")
