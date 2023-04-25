@@ -17,6 +17,7 @@ struct NetworkView: View {
     @EnvironmentObject var us: UserState
     @State var knownDevices: [DeviceObject] = []
     @State var statusColor: Color = Color.green
+    @State var affectedDeviceString: String = ""
     
     var body: some View {
         let wifiName = "Phrog House"
@@ -38,6 +39,9 @@ struct NetworkView: View {
                
                Image(systemName: "wifi.circle").resizable().frame(width: 100, height: 100).foregroundColor(Color.white).offset(y: -175)
                Text(wifiName).font(.title2).bold().foregroundColor(.white).offset(y: -70)
+                Text(affectedDeviceString).font(.title3).bold().foregroundColor(.white).offset(y: -30)
+                
+                Spacer()
                 
                 NavigationLink(destination: AddDeviceView()) {
                     Text("Add Device")
@@ -67,12 +71,15 @@ struct NetworkView: View {
     
     func checkNetworkStatus() {
         statusColor = Color.green
+        affectedDeviceString = ""
         for d in knownDevices {
             if (d.severity == "Attack") {
                 statusColor = Color.red
+                affectedDeviceString = "Device: \(d.device_name) is under attack!"
                 return
             } else if (d.severity == "Warning") {
                 statusColor = Color.yellow
+                affectedDeviceString = "Device: \(d.device_name) could be under attack!"
             }
         }
     }

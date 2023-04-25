@@ -61,7 +61,7 @@ class AttackObject: ObservableObject, Codable, Identifiable, Hashable {
         }
         
         let df = DateFormatter()
-        df.dateFormat = "yyyy-MM-dd HH:mm"
+        df.dateFormat = "yyyy-MM-dd HH:mm:ss"
         
         var d = DateComponents()
         d.year = timestamp[0]
@@ -76,7 +76,7 @@ class AttackObject: ObservableObject, Codable, Identifiable, Hashable {
     
     func utcToLocal(dateStr: String) -> String? {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
         
         if let date = dateFormatter.date(from: dateStr) {
