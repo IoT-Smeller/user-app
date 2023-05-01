@@ -56,6 +56,7 @@ struct ContentView: View {
         }
     }
     
+    
     func setCategories(){
         let openAction = UNNotificationAction(identifier: "open", title: "Open", options: [])
         let attackCategory = UNNotificationCategory(identifier: "attack.category",actions: [openAction],intentIdentifiers: [], options: [])

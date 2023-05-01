@@ -254,6 +254,7 @@ struct DevicePageView: View {
             .onAppear(perform: getUnkownDevices)
     }
     
+    
     func getConnectedDevices() {
         print(notificationInfo.token)
         guard let url = URL(string: "http://iotsmeller.roshinator.com:8080/device?user_id=\(us.userid)") else { fatalError("Missing URL") }
@@ -287,6 +288,7 @@ struct DevicePageView: View {
     }
     
     func getUnkownDevices() {
+        print("User id (in device view): \(us.userid)")
         guard let url = URL(string: "http://iotsmeller.roshinator.com:8080/unknown-device?user_id=\(us.userid)") else { fatalError("Missing URL") }
 
         var request = URLRequest(url: url)

@@ -40,6 +40,7 @@ struct AddDeviceView: View {
     }
     
     func getUnkownDevices() {
+        print("User id (in add device): \(us.userid)")
         guard let url = URL(string: "http://iotsmeller.roshinator.com:8080/unknown-device?user_id=\(us.userid)") else { fatalError("Missing URL") }
 
         var request = URLRequest(url: url)
@@ -66,7 +67,7 @@ struct AddDeviceView: View {
     }
     
     func getAllDevices() {
-        guard let url = URL(string: "http://iotsmeller.roshinator.com:8080/info?user_id=\(us.userid)&prefix=69:69:69") else { fatalError("Missing URL") }
+        guard let url = URL(string: "http://iotsmeller.roshinator.com:8080/info?user_id=\(us.userid)") else { fatalError("Missing URL") }
 
         var request = URLRequest(url: url)
         request.httpMethod = "GET"

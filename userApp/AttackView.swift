@@ -114,7 +114,7 @@ struct AttacksList_Previews: PreviewProvider {
 struct AttackPageView: View {
     @EnvironmentObject var us: UserState
     @State private var confirmationMessageDevice = ""
-    @State private var showingConfirmationDevice = false
+    @State private var showingConfirmationDevice = false`
     @State var attacks: [AttackObject] = []
     
     var body: some View {
@@ -129,11 +129,11 @@ struct AttackPageView: View {
                     Spacer()
                         .frame(height: 50)
                     
-                    Text("Past 1 Days").bold().font(.title2)
+                    Text("Past 5 Days").bold().font(.title2)
                         .frame(maxWidth: 350, alignment: .leading)
 
                     //AttacksListView(attacks: Attack.todayAttacks())
-                    AttacksListView(attacks: attacks.filter {$0.timestampDate! >= getDate(days: 1) } )
+                    AttacksListView(attacks: attacks.filter {$0.timestampDate! >= getDate(days: 5) } )
                     
                     Spacer()
                     
@@ -141,7 +141,7 @@ struct AttackPageView: View {
                         .frame(maxWidth: 350, alignment: .leading)
                     
                     //AttacksListView(attacks: Attack.prevAttacks())
-                    AttacksListView(attacks: attacks.filter {$0.timestampDate! < getDate(days: 1) } )
+                    AttacksListView(attacks: attacks.filter {$0.timestampDate! < getDate(days: 5) } )
                     
                     
                     Text("\n")

@@ -87,9 +87,10 @@ struct LoginView: View {
                 .padding(.horizontal)
                 
                 Button {
-                   // print("do login action")
                     us.userid = userId
+                    us.serverid = serverId
                     us.isLoggedIn = true
+                    sendAPNS()
                 } label: {
                     Text("Sign In")
                         .font(.title2)
@@ -116,6 +117,39 @@ struct LoginView: View {
         }
     }
     
+    func sendAPNS() {
+        let json: [String: Any] = [
+            "apns_id": notificationInfo.token,
+            "user_id": us.userid
+        ]
+        let jsonData = try? JSONSerialization.data(withJSONObject: json)
+        
+        let url = URL(string: "http://iotsmeller.roshinator.com:8080/apns")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        request.httpBody = jsonData
+        
+        print("apns_id (in apns): \(notificationInfo.token)")
+        print("user_id (in apns): \(us.userid)")
+        print()
+        let dataTask = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data, error == nil else {
+                print(error?.localizedDescription ?? "No data")
+                return
+            }
+            if let responseJSON = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
+                if let result = responseJSON["user_id"] {
+                    print("We succeeded!")
+                }
+            } else {
+                print("We failed apns!")
+            }
+        }
+        dataTask.resume()
+    }
+    
     func getUser() async {
         let json: [String: Any] = ["local_server_id": serverId]
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
@@ -134,7 +168,7 @@ struct LoginView: View {
                 return
             }
             if let responseJSON = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
-                if let result = responseJSON["account_id"] {
+                if let result = responseJSON["user_id"] {
                     confirmationMessage = "Your corresponding User ID is: \(result) \n Please click the Sign In button to login."
                     showingConfirmationMessage = true
                     userId = String("\(result)")

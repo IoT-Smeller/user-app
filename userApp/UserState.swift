@@ -12,6 +12,7 @@ class UserState: ObservableObject {
     
     @Published var isLoggedIn = false
     @Published var userid = ""
+    @Published var serverid = ""
     @Published var notifToken = ""
     
 }

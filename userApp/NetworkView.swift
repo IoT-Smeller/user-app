@@ -51,7 +51,7 @@ struct NetworkView: View {
                 .foregroundColor(.white)
                 .font(.headline)
                 .cornerRadius(10)
-                .position(x: 200, y: 450)
+                .position(x: 200, y: 475)
                 
                 NavigationLink(destination: RemoveDeviceView()) {
                     Text("Remove Device")

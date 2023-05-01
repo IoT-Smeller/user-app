@@ -104,7 +104,7 @@ struct UnknownDevicesListView2: View {
             "device_name": device.device_name ?? "",
             "user_id": device.user_id,
             "connection_status": "Offline",
-            "severity": "Attack",
+            "severity": "Ok",
             "info_manf": sm.manf_name,
             "info_name": sm.device_name
         ]
