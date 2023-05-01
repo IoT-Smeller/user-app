@@ -27,7 +27,6 @@ struct CustomColor {
 
 // *** Content View ***
 struct ContentView: View {
-    //@UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     @State var activeTab = 1
     
     @EnvironmentObject var selTab: SelectedTab
@@ -54,7 +53,13 @@ struct ContentView: View {
                      Image(systemName: "exclamationmark.triangle")
                      Text("Attacks")
                 }
-        }//.onAppear(perform: testNotification)
+        }
+    }
+    
+    func setCategories(){
+        let openAction = UNNotificationAction(identifier: "open", title: "Open", options: [])
+        let attackCategory = UNNotificationCategory(identifier: "attack.category",actions: [openAction],intentIdentifiers: [], options: [])
+        UNUserNotificationCenter.current().setNotificationCategories([attackCategory])
     }
     
    func requestNotificationPermission() {
