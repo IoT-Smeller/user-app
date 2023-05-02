@@ -114,7 +114,7 @@ struct AttacksList_Previews: PreviewProvider {
 struct AttackPageView: View {
     @EnvironmentObject var us: UserState
     @State private var confirmationMessageDevice = ""
-    @State private var showingConfirmationDevice = false`
+    @State private var showingConfirmationDevice = false
     @State var attacks: [AttackObject] = []
     
     var body: some View {
@@ -132,7 +132,6 @@ struct AttackPageView: View {
                     Text("Past 5 Days").bold().font(.title2)
                         .frame(maxWidth: 350, alignment: .leading)
 
-                    //AttacksListView(attacks: Attack.todayAttacks())
                     AttacksListView(attacks: attacks.filter {$0.timestampDate! >= getDate(days: 5) } )
                     
                     Spacer()
@@ -140,19 +139,16 @@ struct AttackPageView: View {
                     Text("Previous").bold().font(.title2)
                         .frame(maxWidth: 350, alignment: .leading)
                     
-                    //AttacksListView(attacks: Attack.prevAttacks())
                     AttacksListView(attacks: attacks.filter {$0.timestampDate! < getDate(days: 5) } )
                     
-                    
                     Text("\n")
-                    
                 }
                 .background(CustomColor.lightGray)
             }.onAppear(perform: getAttackHistory)
         }
     
     func getAttackHistory() {
-        guard let url = URL(string: "http://iotsmeller.roshinator.com:8080/history?user_id=\(us.userid)&count=10") else { fatalError("Missing URL") }
+        guard let url = URL(string: "http://iotsmeller.roshinator.com:8080/history?user_id=\(us.userid)&count=20") else { fatalError("Missing URL") }
 
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
@@ -170,7 +166,7 @@ struct AttackPageView: View {
                        do {
                            attacks = try JSONDecoder().decode([AttackObject].self, from: data)
                        } catch let error {
-                           confirmationMessageDevice = "Error Decoding: \(error)"
+                           confirmationMessageDevice = "Something went wrong with retreiving attack history. Please close and refresh the app the solve the issue."
                            showingConfirmationDevice = true
                        }
                    }
@@ -201,6 +197,4 @@ struct AttackView_Previews: PreviewProvider {
 
 /* References
  - Expandable list functionality inspired by: V8tr, https://github.com/V8tr/ExpandableListSwiftUI
- 
- 
  */

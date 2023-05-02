@@ -144,7 +144,8 @@ struct LoginView: View {
                     print("We succeeded!")
                 }
             } else {
-                print("We failed apns!")
+                confirmationMessage = "Something went wrong with connection to remote server. Please close and refresh the app to solve issue."
+                showingConfirmationMessage = true
             }
         }
         dataTask.resume()
@@ -192,24 +193,3 @@ struct LoginView_Previews: PreviewProvider {
  References:
  - Login Functionality: https://holyswift.app/how-to-create-a-login-screen-in-swiftui/
  */
-
-
-    /* VStack {
-         Button("Get User") {
-             Task {
-                 await getUser()
-             }
-         }
-         .bold()
-         .padding()
-         .foregroundColor(.white)
-         .background(CustomColor.lightBlue)
-         .cornerRadius(25)
-         .offset(y: 275)
-     }
- }
- .alert("Thank you!", isPresented: $showingConfirmation) {
-             Button("OK") { }
-         } message: {
-             Text(confirmationMessage)
-         } */

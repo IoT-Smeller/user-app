@@ -53,7 +53,6 @@ class AttackObject: ObservableObject, Codable, Identifiable, Hashable {
         attack_type = try container.decode(String.self, forKey: .attack_type)
         severity = try container.decode(String.self, forKey: .severity)
         device_address = try container.decode(String.self, forKey: .device_address)
-       // device_name = try container.decodeIfPresent(String.self, forKey: .device_name) ?? ""
         for d in deviceInfo.connectedDevices {
             if d.device_id == device_address {
                 device_name = d.device_name

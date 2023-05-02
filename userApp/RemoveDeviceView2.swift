@@ -9,6 +9,8 @@ import SwiftUI
 
 struct RemoveDeviceView2: View {
     @EnvironmentObject var us: UserState
+    @State private var confirmationMessageDevice = ""
+    @State private var showingConfirmationDevice = false
     @State var connectedDevices: [DeviceObject] = []
     var selectedManufacturer: KnownDeviceObject
     
@@ -52,9 +54,8 @@ struct RemoveDeviceView2: View {
                    do {
                        connectedDevices = try JSONDecoder().decode([DeviceObject].self, from: data)
                    } catch let error {
-                       //confirmationMessageDevice = "Error Decoding: \(error)"
-                       //showingConfirmationDevice = true
-                       print(error)
+                       confirmationMessageDevice = "Something went wrong. Please close and refresh the app to solve issue."
+                       showingConfirmationDevice = true
                    }
                }
            }
@@ -144,7 +145,8 @@ struct DevicesListView2: View {
                 confirmationMessage = "Successully removed device \(device.device_name)! Please return to the home page to view device statuses."
                 showingConfirmationMessage = true
             } else {
-                print("Failed to add device")
+                confirmationMessage = "Something went wrong with removing device. Please close and refresh the app to solve issue."
+                showingConfirmationMessage = true
             }
         }
         dataTask.resume()

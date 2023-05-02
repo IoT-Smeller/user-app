@@ -9,6 +9,8 @@ import SwiftUI
 
 struct RemoveDeviceView: View {
     @EnvironmentObject var us: UserState
+    @State private var confirmationMessage = ""
+    @State private var showingConfirmation = false
     @State var unknownDevices: [UnkownDeviceObject] = []
     @State var KnownDevices: [KnownDeviceObject] = []
     
@@ -57,7 +59,8 @@ struct RemoveDeviceView: View {
                            unknownDevices = try JSONDecoder().decode([UnkownDeviceObject].self, from: data)
                            deviceInfo.unknownDevices = unknownDevices
                        } catch let error {
-                           print(error)
+                           confirmationMessage = "Something went wrong with retreiving unknown devices. Please close and refresh the app to solve issue."
+                           showingConfirmation = true
                        }
                    }
                }
@@ -66,7 +69,7 @@ struct RemoveDeviceView: View {
     }
     
     func getAllDevices() {
-        guard let url = URL(string: "http://iotsmeller.roshinator.com:8080/info?user_id=\(us.userid)&prefix=69:69:69") else { fatalError("Missing URL") }
+        guard let url = URL(string: "http://iotsmeller.roshinator.com:8080/info?user_id=\(us.userid)") else { fatalError("Missing URL") }
 
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
@@ -85,7 +88,8 @@ struct RemoveDeviceView: View {
                        do {
                            KnownDevices = try JSONDecoder().decode([KnownDeviceObject].self, from: data)
                        } catch let error {
-                           print(error)
+                           confirmationMessage = "Something went wrong with retrieving device info. Please close and refresh the app to solve issue."
+                           showingConfirmation = true
                        }
                    }
                }

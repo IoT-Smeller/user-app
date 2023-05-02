@@ -9,6 +9,8 @@ import SwiftUI
 
 struct AddDeviceView: View {
     @EnvironmentObject var us: UserState
+    @State private var confirmationMessage = ""
+    @State private var showingConfirmation = false
     @State var unknownDevices: [UnkownDeviceObject] = []
     @State var KnownDevices: [KnownDeviceObject] = []
     
@@ -58,7 +60,8 @@ struct AddDeviceView: View {
                            unknownDevices = try JSONDecoder().decode([UnkownDeviceObject].self, from: data)
                            deviceInfo.unknownDevices = unknownDevices
                        } catch let error {
-                           print(error)
+                           confirmationMessage = "Something went wrong with retrieving unknown device. Please close and refresh the app to solve issue."
+                           showingConfirmation = true
                        }
                    }
                }
@@ -86,7 +89,8 @@ struct AddDeviceView: View {
                        do {
                            KnownDevices = try JSONDecoder().decode([KnownDeviceObject].self, from: data)
                        } catch let error {
-                           print(error)
+                           confirmationMessage = "Something went wrong with retrieving device info. Please close and refresh the app to solve issue."
+                           showingConfirmation = true
                        }
                    }
                }

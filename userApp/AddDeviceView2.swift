@@ -128,7 +128,8 @@ struct UnknownDevicesListView2: View {
                 confirmationMessage = "Successully added device \(device.device_name ?? "Unkown Name")! Please return to the home page to view device statuses."
                 showingConfirmationMessage = true
             } else {
-                print("Failed to add device")
+                confirmationMessage = "Something went wrong with adding device. Please close and refresh the app to solve issue."
+                showingConfirmationMessage = true
             }
         }
         dataTask.resume()

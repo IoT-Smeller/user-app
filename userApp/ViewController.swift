@@ -2,7 +2,7 @@
 //  ViewController.swift
 //  WARN
 //
-//  Created by Colette Bradley on 4/25/23.
+//  Created by Jaden Ngo on 4/25/23.
 //
 
 import UIKit
@@ -11,11 +11,13 @@ import UserNotifications
 class ViewController: UIViewController {
     
     override func viewDidLoad() {
+        print("in view did load")
         super.viewDidLoad()
         checkForPermissions()
     }
     
     func checkForPermissions() {
+        print("HERE")
         let notificationCenter = UNUserNotificationCenter.current()
         notificationCenter.getNotificationSettings { settings in
             switch settings.authorizationStatus {

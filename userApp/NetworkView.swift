@@ -15,6 +15,8 @@ import SwiftUI
 
 struct NetworkView: View {
     @EnvironmentObject var us: UserState
+    @State private var confirmationMessageDevice = ""
+    @State private var showingConfirmationDevice = false
     @State var knownDevices: [DeviceObject] = []
     @State var statusColor: Color = Color.green
     @State var affectedDeviceString: String = ""
@@ -97,18 +99,15 @@ struct NetworkView: View {
                }
 
                guard let response = response as? HTTPURLResponse else { return }
- //           print(response.statusCode)
 
                if let data = data {
                    DispatchQueue.main.async {
                        do {
                            knownDevices = try JSONDecoder().decode([DeviceObject].self, from: data)
-                      //     deviceInfo.knownDevices = knownDevices
                            deviceInfo.connectedDevices = knownDevices
                        } catch let error {
-                          // confirmationMessageDevice = "Error Decoding: \(error)"
-                          // showingConfirmationDevice = true
-                           print("Error Decoding: \(error)")
+                           confirmationMessageDevice = "Something went wrong with retreiving connected devices. Please close and refresh the app to solve issue."
+                           showingConfirmationDevice = true
                        }
                    }
                }

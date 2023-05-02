@@ -9,8 +9,6 @@ import Foundation
 
 class KnownDeviceObject: ObservableObject, Codable, Identifiable, Hashable {
     
-    // Device(id: 1, name: "Amazon Dot", macAddr:  "00-B0-D0-63-C2-26", status: .green, deauthVulnerability: vulnerabilities[2], krackVulnerability: vulnerabilities[2], attackID: [1]),
-    
     enum CodingKeys: CodingKey {
             case manf_name, device_name, pps
     }

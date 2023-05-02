@@ -55,37 +55,6 @@ struct ContentView: View {
                 }
         }
     }
-    
-    
-    func setCategories(){
-        let openAction = UNNotificationAction(identifier: "open", title: "Open", options: [])
-        let attackCategory = UNNotificationCategory(identifier: "attack.category",actions: [openAction],intentIdentifiers: [], options: [])
-        UNUserNotificationCenter.current().setNotificationCategories([attackCategory])
-    }
-    
-   func requestNotificationPermission() {
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
-            if success {
-                print("All set!")
-            } else if let error = error {
-                print(error.localizedDescription)
-            }
-        }
-    }
-    
-    func testNotification() {
-        let content = UNMutableNotificationContent()
-        content.title = "Attack Detected"
-        content.body = "A device was attacked!"
-        content.sound = .default
-        
-        print("We reached test function")
-        
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
-        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
-        
-        UNUserNotificationCenter.current().add(request)
-    }
 }
 
 struct ContentView_Previews: PreviewProvider {
