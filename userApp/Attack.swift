@@ -16,7 +16,7 @@ class AttackObject: ObservableObject, Codable, Identifiable, Hashable {
     @Published var history_id = ""
     @Published var user_id = ""
     @Published var timestamp: [Int] = [] // year, day, hour, minute, second, nanosecond, offset hour, offset minute, offset second
-    @Published var attack_type = ""
+    @Published var attack_type: String?
     @Published var severity = ""
     @Published var device_address = ""
     @Published var timestampDate: Date?
@@ -50,7 +50,7 @@ class AttackObject: ObservableObject, Codable, Identifiable, Hashable {
         history_id = try container.decode(String.self, forKey: .history_id)
         user_id = try container.decode(String.self, forKey: .user_id)
         timestamp = try container.decode([Int].self, forKey: .timestamp)
-        attack_type = try container.decode(String.self, forKey: .attack_type)
+        attack_type = try container.decodeIfPresent(String.self, forKey: .attack_type) ?? "Unkown Attack Type"
         severity = try container.decode(String.self, forKey: .severity)
         device_address = try container.decode(String.self, forKey: .device_address)
         for d in deviceInfo.connectedDevices {

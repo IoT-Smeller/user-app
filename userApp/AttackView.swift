@@ -28,7 +28,7 @@ struct AttackView: View {
             
             HStack {
                 let statusColor = getColor(status: attack.severity)
-                Text("\(attack.attack_type)").font(.title3)
+                Text("\(attack.attack_type ?? "Unkown Attack Type")").font(.title3)
                 Image(systemName: "circle.fill").resizable().frame(width: 10, height: 10).foregroundColor(statusColor)
                 Spacer()
                 Text("\(attack.timestampString ?? "")")
@@ -144,6 +144,12 @@ struct AttackPageView: View {
                     Text("\n")
                 }
                 .background(CustomColor.lightGray)
+                .alert("Attack History!", isPresented: $showingConfirmationDevice) {
+                            Button("OK") { }
+                        } message: {
+                            Text(confirmationMessageDevice)
+                        }
+                .background(CustomColor.lightGray)
             }.onAppear(perform: getAttackHistory)
         }
     
@@ -160,11 +166,15 @@ struct AttackPageView: View {
                }
 
             guard let response = response as? HTTPURLResponse else { return }
-
                if let data = data {
                    DispatchQueue.main.async {
                        do {
                            attacks = try JSONDecoder().decode([AttackObject].self, from: data)
+                           if (attacks.isEmpty) {
+                               confirmationMessageDevice = "Your attack history is currently empty. This is great news!"
+                               showingConfirmationDevice = true
+                           }
+                           print("attacks: \(attacks)")
                        } catch let error {
                            confirmationMessageDevice = "Something went wrong with retreiving attack history. Please close and refresh the app the solve the issue."
                            showingConfirmationDevice = true
