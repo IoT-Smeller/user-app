@@ -9,7 +9,7 @@ To run, make sure you complete the following steps:
 * Once the above steps are completed, you will be able to [run a simulated version of WARN](https://developer.apple.com/documentation/xcode/running-your-app-in-simulator-or-on-a-device) onto your handheld device and recieve all the product's functionality
 
 ### Important
-* Everytime a user enters the *local server id* into the login text field, a new user id will be given
+* Everytime a user enters the *local server id* into the Local Server ID text field, a new user id will be given
   * This mimics the creation of a new user, and will hold separate data from other users on the network 
 * To login to an existing account, simply enter the corresponding *user id* into the User ID text field 
 * Users will only be able to add devices that are detected on the smart home network
